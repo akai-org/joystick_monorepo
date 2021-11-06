@@ -22,3 +22,69 @@
 
 ### Kompozycja informacji nt. przycisków (przykład):
 `KEY_INFO = KEY_DOWN | ARROW_UP`
+
+
+## Umowy w komunikacji
+
+### Serwer <-> host gry
+
+#### Tworzenie nowej gry
+
+1) **Host gry** - prośba o utworzenie nowego pokoju gry:
+```
+POST: http://servergo/create
+{
+    "interface": "nazwa interfejsu",
+    "max_players": <maksymalna liczba graczy>(int)
+}
+```
+2) **Serwer**:
+
+a. odpowiedź w przypadku pomyślnego utworzenia pokoju:
+```
+kod 200 ok
+{
+    "room_code": "kod pokoju",
+    "address": "http://servergo/conns/unikatowy_uri_do_komunikacji_przez_ws
+}
+```
+
+b. odpowiedź w przypadku błędu w przesłanych danych:
+```
+kod 400 user error
+{
+    message: "jakaś wiadomość co poszło nie tak"
+}
+```
+
+### Serwer <-> joystick
+
+#### Rejestracja nowego gracza
+
+1) **Gracz** - prośba o przypisanie do gry:
+```
+POST: http://servergo/join
+{
+    "nickname": "nick gracza",
+    "room_code": "kod pokoju"
+}
+```
+
+2) **Serwer**:
+
+a. odpowiedź w przypadku pomyślnego zarejestrowania gracza:
+```
+kod 200 ok
+{
+    "interface": "nazwa interfejsu",
+    "address": "http://servergo/conns/unikatowy_uri_do_komunikacji_przez_ws"
+}
+```
+
+b. odpowiedź w przypadku błędu w przesłanych danych:
+```
+kod 400 user error
+{
+    message: "jakaś wiadomość co poszło nie tak"
+}
+```
