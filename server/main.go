@@ -7,8 +7,6 @@ import (
 	"net/http"
 )
 
-var counter uint8 = 0
-
 func home(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Index Page")
 }

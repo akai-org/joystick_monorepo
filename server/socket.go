@@ -6,6 +6,7 @@ import (
 	"net/http"
 )
 
+var counter uint8 = 0
 var upgrader = websocket.Upgrader{} // use default options
 
 func socketHandler(w http.ResponseWriter, r *http.Request) {
