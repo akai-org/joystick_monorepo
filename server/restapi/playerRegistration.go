@@ -8,17 +8,12 @@ import (
 )
 
 const (
-	methodNotAllowedMessage = "method not allowed, use POST instead"
-	messageIsNotCorrectJson = "given message is not a valid json"
+	methodNotAllowedMessage  = "method not allowed, use POST instead"
+	messageIsNotCorrectJson  = "given message is not a valid json"
 	playerNameTooLongMessage = "player nickname is too long1"
 	maxAllowedNicknameLength = 16
-	gameDoesntExistMessage = "room with such code doesn't exist"
+	gameDoesntExistMessage   = "room with such code doesn't exist"
 )
-
-type playerRequest struct {
-	RoomCode	string	`json:"room_code"`
-	Nickname	string	`json:"nickname"`
-}
 
 func RegisterNewPlayer(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
@@ -52,7 +47,7 @@ func RegisterNewPlayer(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (payload *playerRequest) isValid () error {
+func (payload *playerRequest) isValid() error {
 	if len(payload.Nickname) > maxAllowedNicknameLength {
 		return errors.New(playerNameTooLongMessage)
 	}

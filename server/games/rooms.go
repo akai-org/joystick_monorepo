@@ -8,37 +8,37 @@ import (
 const noSpaceLeftInRoom = "max player count in room has been reached"
 
 type room struct {
-	players []Player
+	players    []Player
 	maxPlayers int
-	gui string
+	gui        string
 }
 
 // dummy values, to be removed
-var rooms = map[string]*room {
+var rooms = map[string]*room{
 	"abcd": {
-		players: make([]Player, 0),
+		players:    make([]Player, 0),
 		maxPlayers: 10,
-		gui: "arrows-horizontal",
+		gui:        "arrows-horizontal",
 	},
 	"aaaa": {
-		players: make([]Player, 0),
+		players:    make([]Player, 0),
 		maxPlayers: 10,
-		gui: "arrows-horizontal",
+		gui:        "arrows-horizontal",
 	},
 	"bbbb": {
-		players: make([]Player, 0),
+		players:    make([]Player, 0),
 		maxPlayers: 10,
-		gui: "arrows-horizontal",
+		gui:        "arrows-horizontal",
 	},
 	"cccc": {
-		players: make([]Player, 0),
+		players:    make([]Player, 0),
 		maxPlayers: 10,
-		gui: "arrows-horizontal",
+		gui:        "arrows-horizontal",
 	},
 	"dddd": {
-		players: make([]Player, 0),
+		players:    make([]Player, 0),
 		maxPlayers: 10,
-		gui: "arrows-horizontal",
+		gui:        "arrows-horizontal",
 	},
 }
 
@@ -49,10 +49,18 @@ func RoomExists(code string) bool {
 
 func AddPlayerToRoom(player Player, roomCode string) error {
 	room := rooms[roomCode]
-	if len(room.players) >= room.maxPlayers {
+	if !room.hasPlacesLeft() {
 		return errors.New(noSpaceLeftInRoom)
 	}
-	room.players = append(rooms[roomCode].players, player)
+	room.addPlayer(player)
 	fmt.Printf("%d player(s) in room %s\n", len(room.players), roomCode)
 	return nil
+}
+
+func (room *room) hasPlacesLeft() bool {
+	return room.maxPlayers <= len(room.players)
+}
+
+func (room *room) addPlayer(player Player) {
+	room.players = append(room.players, player)
 }

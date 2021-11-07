@@ -9,6 +9,11 @@ type errorResponse struct {
 	Message string `json:"message"`
 }
 
+type playerRequest struct {
+	RoomCode string `json:"room_code"`
+	Nickname string `json:"nickname"`
+}
+
 func jsonResponse(w http.ResponseWriter, error interface{}, code int) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.Header().Set("X-Content-Type-Options", "nosniff")
@@ -16,7 +21,7 @@ func jsonResponse(w http.ResponseWriter, error interface{}, code int) {
 	json.NewEncoder(w).Encode(error)
 }
 
-func (errorResponse *errorResponse) message (message string) *errorResponse{
+func (errorResponse *errorResponse) message(message string) *errorResponse {
 	errorResponse.Message = message
 	return errorResponse
 }
