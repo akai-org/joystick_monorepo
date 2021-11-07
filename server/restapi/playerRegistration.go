@@ -1,4 +1,4 @@
-package communication
+package restapi
 
 import (
 	"akai.org.pl/joystick_server/games"
@@ -15,7 +15,6 @@ const (
 	gameDoesntExistMessage = "room with such code doesn't exist"
 )
 
-
 type playerRequest struct {
 	RoomCode	string	`json:"room_code"`
 	Nickname	string	`json:"nickname"`
@@ -23,19 +22,22 @@ type playerRequest struct {
 
 func RegisterNewPlayer(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
-		http.Error(w, methodNotAllowedMessage, http.StatusMethodNotAllowed)
+		response := errorResponse{Message: methodNotAllowedMessage}
+		jsonResponse(w, response, http.StatusMethodNotAllowed)
 		return
 	}
 
 	var payload playerRequest
 
 	if err := json.NewDecoder(r.Body).Decode(&payload); err != nil {
-		http.Error(w, messageIsNotCorrectJson, http.StatusBadRequest)
+		response := errorResponse{Message: messageIsNotCorrectJson}
+		jsonResponse(w, response, http.StatusBadRequest)
 		return
 	}
 
-	if err := validatePayload(payload); err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+	if err := payload.isValid(); err != nil {
+		response := errorResponse{Message: err.Error()}
+		jsonResponse(w, response, http.StatusBadRequest)
 		return
 	}
 
@@ -44,11 +46,13 @@ func RegisterNewPlayer(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := games.AddPlayerToRoom(player, payload.RoomCode); err != nil {
-		http.Error(w, err.Error(), http.StatusForbidden)
+		response := errorResponse{Message: err.Error()}
+		jsonResponse(w, response, http.StatusForbidden)
+		return
 	}
 }
 
-func validatePayload(payload playerRequest) error {
+func (payload *playerRequest) isValid () error {
 	if len(payload.Nickname) > maxAllowedNicknameLength {
 		return errors.New(playerNameTooLongMessage)
 	}

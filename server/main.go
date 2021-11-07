@@ -1,7 +1,7 @@
 package main
 
 import (
-	"akai.org.pl/joystick_server/communication"
+	"akai.org.pl/joystick_server/restapi"
 	"fmt"
 	"log"
 	"net/http"
@@ -18,6 +18,6 @@ func main() {
 	fmt.Println("Began listening...")
 	http.HandleFunc("/socket", socketHandler)
 	http.HandleFunc("/", home)
-	http.HandleFunc("/join", communication.RegisterNewPlayer)
+	http.HandleFunc("/join", restapi.RegisterNewPlayer)
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
