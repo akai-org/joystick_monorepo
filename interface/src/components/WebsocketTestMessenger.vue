@@ -14,7 +14,7 @@ export default {
     msg: String
   },
   mounted () {
-    this.connectToWs()
+    this.$store.dispatch('initWebsocketConnection')
   },
   data () {
     return {
@@ -23,12 +23,9 @@ export default {
     }
   },
   methods: {
-    connectToWs () {
-      this.socket = new WebSocket('ws://127.0.0.1:8081/socket')
-    },
     send () {
       console.log('sending ', this.toSend)
-      this.socket.send(this.toSend)
+      this.$store.dispatch('pressButton', { key: 'ARROW_RIGHT', keyState: 'KEY_DOWN' })
     }
   }
 
