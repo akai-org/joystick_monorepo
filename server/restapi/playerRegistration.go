@@ -5,14 +5,16 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
+	"unicode"
 )
 
 const (
-	methodNotAllowedMessage  = "method not allowed, use POST instead"
-	messageIsNotCorrectJson  = "given message is not a valid json"
-	playerNameTooLongMessage = "player nickname is too long1"
-	maxAllowedNicknameLength = 16
-	gameDoesntExistMessage   = "room with such code doesn't exist"
+	methodNotAllowedMessage    = "method not allowed, use POST instead"
+	messageIsNotCorrectJson    = "given message is not a valid json"
+	playerNameTooLongMessage   = "player nickname is too long"
+	maxAllowedNicknameLength   = 16
+	gameDoesntExistMessage     = "room with such code doesn't exist"
+	forbiddenCharsInPlayerName = "nickname contains forbidden characters, use alphanumeric ones and _"
 )
 
 func RegisterNewPlayer(w http.ResponseWriter, r *http.Request) {
@@ -47,7 +49,7 @@ func RegisterNewPlayer(w http.ResponseWriter, r *http.Request) {
 	}
 
 	response := playerResponse{
-		Address: "Somethingthatwillbereplaced",
+		Address:   "Somethingthatwillbereplaced",
 		Interface: games.GetRoomInterface(payload.RoomCode),
 	}
 
@@ -56,11 +58,23 @@ func RegisterNewPlayer(w http.ResponseWriter, r *http.Request) {
 }
 
 func (payload *playerRequest) isValid() error {
-	if len(payload.Nickname) > maxAllowedNicknameLength {
-		return errors.New(playerNameTooLongMessage)
+	if err := validateNickname(payload.Nickname); err != nil {
+		return err
 	}
 	if !games.RoomExists(payload.RoomCode) {
 		return errors.New(gameDoesntExistMessage)
+	}
+	return nil
+}
+
+func validateNickname(nickname string) error {
+	if len(nickname) > maxAllowedNicknameLength {
+		return errors.New(playerNameTooLongMessage)
+	}
+	for _, char := range nickname {
+		if !unicode.IsLetter(char) && !unicode.IsDigit(char) && char != '_' {
+			return errors.New(forbiddenCharsInPlayerName)
+		}
 	}
 	return nil
 }
