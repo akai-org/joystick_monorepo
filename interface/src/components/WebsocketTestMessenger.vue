@@ -18,8 +18,7 @@ export default {
   },
   data () {
     return {
-      toSend: '',
-      socket: null
+      toSend: ''
     }
   },
   methods: {
