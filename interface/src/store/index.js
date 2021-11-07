@@ -20,7 +20,6 @@ export default createStore({
       const keyCode = keyCodes.get(key)
       const kState = keyStates.get(keyState)
 
-      // zero is marking beggining of the string
       const message = (keyCode | kState).toString(2)
 
       state.socket.send(message)
