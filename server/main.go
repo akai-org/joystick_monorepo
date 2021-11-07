@@ -17,5 +17,6 @@ func main() {
 	fmt.Println("Began listening...")
 	http.HandleFunc("/socket", socketHandler)
 	http.HandleFunc("/", home)
+	http.HandleFunc("/join", registerNewPlayer)
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
