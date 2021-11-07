@@ -45,6 +45,14 @@ func RegisterNewPlayer(w http.ResponseWriter, r *http.Request) {
 		jsonResponse(w, response, http.StatusForbidden)
 		return
 	}
+
+	response := playerResponse{
+		Address: "Somethingthatwillbereplaced",
+		Interface: games.GetRoomInterface(payload.RoomCode),
+	}
+
+	jsonResponse(w, response, http.StatusOK)
+	return
 }
 
 func (payload *playerRequest) isValid() error {

@@ -47,6 +47,10 @@ func RoomExists(code string) bool {
 	return ok
 }
 
+func GetRoomInterface(code string) string {
+	return rooms[code].gui
+}
+
 func AddPlayerToRoom(player Player, roomCode string) error {
 	room := rooms[roomCode]
 	if !room.hasPlacesLeft() {
@@ -58,7 +62,7 @@ func AddPlayerToRoom(player Player, roomCode string) error {
 }
 
 func (room *room) hasPlacesLeft() bool {
-	return room.maxPlayers <= len(room.players)
+	return room.maxPlayers > len(room.players)
 }
 
 func (room *room) addPlayer(player Player) {

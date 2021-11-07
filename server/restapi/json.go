@@ -14,6 +14,11 @@ type playerRequest struct {
 	Nickname string `json:"nickname"`
 }
 
+type playerResponse struct {
+	Address   string `json:"address"`
+	Interface string `json:"interface"`
+}
+
 func jsonResponse(w http.ResponseWriter, error interface{}, code int) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.Header().Set("X-Content-Type-Options", "nosniff")
