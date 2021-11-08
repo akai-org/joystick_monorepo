@@ -23,8 +23,7 @@ export default {
     data() {
         return {
             nickname: '',
-            room_code: '',
-            errorMessage: '' 
+            room_code: ''
         }
     },
     methods: {
@@ -43,22 +42,15 @@ export default {
             .then(response => {
                 // check for error in response
                 if(!response.ok) {
-                    // get error message from body or default to response status
-                    const error = (data && data.message) || response.status;
-                    console.log(error);
-                    //return Promise.reject(error);
+                    console.log('There was an error!');
                 }
                 response.json()
             })
-            .then(data => console.log(json))
+            .then(data => console.log(data))
             .catch(error => {
                 console.error(error);
             })
         },
-        /*displayError(error) {
-            this.errorMessage = error.toString();
-            console.error('There was an error!', error);
-        }*/
     },
 }
 
