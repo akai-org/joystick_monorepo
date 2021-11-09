@@ -9,49 +9,36 @@
                 <label>Player's nick</label>
                 <input type="text" name="nickname" placeholder="Enter your nickname" v-model="nickname" />
             </div>
-            <button type="submit">Enter the game</button>
+            <button type="submit" name="button">Enter the game</button>
         </form>
-        <span class="error">
-
-        </span>
     </div>
 </template>
 
 <script>
-export default {
-    name: 'LoginForm',
-    data() {
-        return {
-            nickname: '',
-            room_code: ''
-        }
-    },
-    methods: {
-        onSubmit() {
-            //console.log({this.nickname, this.room_code})
-            fetch('http://servergo/join', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    nickname: this.nickname,
-                    room_code: this.room_code
-                })
-            })
-            .then(response => {
-                // check for error in response
-                if(!response.ok) {
-                    console.log('There was an error!');
-                }
-                response.json()
-            })
-            .then(data => console.log(data))
-            .catch(error => {
-                console.error(error);
-            })
-        },
-    },
-}
+import axios from 'axios'
 
+export default {
+  name: 'LoginForm',
+  data () {
+    return {
+      nickname: '',
+      room_code: ''
+    }
+  },
+  methods: {
+    onSubmit: function () {
+      console.log(this.nickname, this.room_code)
+      const dataForm = new FormData()
+      dataForm.append('nickname', this.nickname)
+      dataForm.append('room_code', this.room_code)
+      // dataForm.getAll('nickname') - use it to get an array of nicknames
+
+      axios.post('http://localhost:8080/join', dataForm)
+        .then(res => console.log(res.data))
+        .catch(err => {
+          console.error(err.message)
+        })
+    }
+  }
+}
 </script>
