@@ -18,7 +18,13 @@ const (
 )
 
 func RegisterNewPlayer(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodPost && r.Method != http.MethodOptions{
+	if r.Method == http.MethodOptions {
+		response := new(struct{})
+		jsonResponse(w, response, http.StatusNoContent)
+		return
+	}
+
+	if r.Method != http.MethodPost {
 		response := errorResponse{Message: methodNotAllowedMessage}
 		jsonResponse(w, response, http.StatusMethodNotAllowed)
 		return
