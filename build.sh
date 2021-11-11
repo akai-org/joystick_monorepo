@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 SERVICE_NAME=$1
 
 docker-compose build $SERVICE_NAME

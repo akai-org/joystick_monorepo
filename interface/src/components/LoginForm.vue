@@ -38,10 +38,6 @@ export default {
   methods: {
     onSubmit: function () {
       console.log(this.nickname, this.room_code)
-      /* const dataForm = new FormData()
-      dataForm.append('nickname', this.nickname)
-      dataForm.append('room_code', this.room_code) */
-      // dataForm.getAll('nickname') - use it to get an array of nicknames
 
       axios
         .post('http://localhost:8081/join', {
@@ -50,7 +46,7 @@ export default {
         })
         .then((res) => {
           console.log(res.data)
-          // local storage
+          localStorage.setItem('response', JSON.stringify(res.data))
         })
         .catch((err) => {
           console.error(err.response.data.message)
