@@ -6,6 +6,14 @@ import (
 )
 
 type Engine struct {
-	RoomManager room.RoomManager
+	roomManager room.RoomManager
 	//TODO playerManager player.Manager, etc.
+}
+
+func NewEngine(rm room.RoomManager) Engine {
+	return Engine{rm}
+}
+
+func (e *Engine) CreateRoom(gui string, maxPlayers int) (code int) {
+	return e.roomManager.CreateRoom(gui, maxPlayers)
 }
