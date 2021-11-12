@@ -1,3 +1,4 @@
+// Package engine provides tools to run and manage joystick by combining all the implemented features.
 package engine
 
 import (
@@ -5,6 +6,6 @@ import (
 )
 
 type Engine struct {
-	roomManager room.RoomManager
+	RoomManager room.RoomManager
 	//TODO playerManager player.Manager, etc.
 }
