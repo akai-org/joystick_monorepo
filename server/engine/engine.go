@@ -45,3 +45,13 @@ func (e *Engine) GetRoom(code int) (room *Room, err error) {
 	}
 	return nil, fmt.Errorf("no room with code %d", code)
 }
+
+func (e *Engine) RemoveRoom(code int) (err error) {
+	for i, r := range e.rooms {
+		if r.Code == code {
+			e.rooms = append(e.rooms[:i], e.rooms[i+1:]...)
+			return nil
+		}
+	}
+	return fmt.Errorf("no room with code %d", code)
+}
