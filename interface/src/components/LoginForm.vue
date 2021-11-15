@@ -46,7 +46,8 @@ export default {
         })
         .then((res) => {
           console.log(res.data)
-          localStorage.setItem('response', JSON.stringify(res.data))
+          localStorage.setItem('interface', JSON.stringify(res.data.interface))
+          localStorage.setItem('address', JSON.stringify(res.data.address))
         })
         .catch((err) => {
           console.error(err.response.data.message)
