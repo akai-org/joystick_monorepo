@@ -1,6 +1,39 @@
-// CONFIG
+// ===================
+//  CONFIG
+// ===================
 
+// background
 $color-background: #2194f3;
+
+$background-offset-x: -52px;
+$background-offset-y: -30px;
+
+$background-icon-size: 5rem;
+$background-icon-opacity: 0.07;
+
+// logo
+$logo-margin-top: 3rem;
+$logo-color: white;
+$logo-size: 2.5rem;
+
+// login form
+$form-background-color: aliceblue;
+
+// label
+$label-text-color: #00000090;
+
+// input
+$input-font-size: 1.4rem;
+$input-background-color: #dce3e9;
+
+// button
+$button-text-color: #000000c0;
+$button-press-duration: 2s;
+
+// form element
+$form-element-margin-top: 1.5rem;
+$form-element-margin-bottom: 0.5rem;
+
 
 // =================
 
@@ -26,14 +59,14 @@ $tablet-breakpoint: 600px;
     position: absolute;
     top: 0;
     left: 0;
-    width: calc(100vw + 52px);
-    height: calc(100vh + 30px);
+    width: calc(100vw - $background-offset-x);
+    height: calc(100vh - $background-offset-y);
     z-index: -1;
     background: url("../../assets/gamepad.png");
     background-repeat: repeat;
-    background-size: 5rem;
-    opacity: 0.07;
-    transform: translateX(-52px) translateY(-30px);
+    background-size: $background-icon-size;
+    opacity: $background-icon-opacity;
+    transform: translateX($background-offset-x) translateY($background-offset-y);
 }
 
 #form-container {
@@ -47,7 +80,7 @@ $tablet-breakpoint: 600px;
 form {
     width: 90vw;
     height: auto;
-    background-color: aliceblue;
+    background-color: $form-background-color;
     justify-self: center;
     margin-top: 4rem;
     border-radius: 15px;
@@ -58,32 +91,31 @@ form {
 .form-element {
     display: flex;
     flex-direction: column;
-    margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
+    margin-top: $form-element-margin-top;
+    margin-bottom: $form-element-margin-bottom;
 
     label {
         // text-align: left;
         margin-bottom: 0.2rem;
-        color: #00000090;
+        color: $label-text-color;
         font-weight: 700;
     }
 
     input {
         height: 2rem + 1.5rem;
-        font-size: 1.4rem;
+        font-size: $input-font-size;
         font-weight: 700;
-        // text-indent: 1rem;
         text-align: center;
         border: none;
-        background-color: #dce3e9;
+        background-color: $input-background-color;
     }
 }
 
 @keyframes button-press {
     from {
-        background-color: #dce3e9;
+        background-color: $input-background-color;
     } to {
-        background-color: #f0f8ff;
+        background-color: $form-background-color;
     }
 }
 
@@ -103,11 +135,11 @@ button {
     // padding-bottom: 1rem;
     border: none;
     border-radius: 15px;
-    background-color: #f0f8ff;
+    background-color: $form-background-color;
     position: relative;
 
     h1 {
-        color: #000000c0;
+        color: $button-text-color;
         font-size: 2rem;
         font-weight: 700;
         position: absolute;
@@ -129,7 +161,7 @@ button {
 
     &:active {
         // background-color: gray;
-        animation: button-press 2s linear;
+        animation: button-press $button-press-duration linear;
     }
 }
 
@@ -138,14 +170,14 @@ button {
 }
 
 #logo {
-    margin-top: 3rem;
-    color: white;
+    margin-top: $logo-margin-top;
+    color: $logo-color;
 
     i {
-        font-size: 2.5rem;
+        font-size: $logo-size;
     }
 
     h1 {
-        font-size: 2.5rem;
+        font-size: $logo-size;
     }
 }
