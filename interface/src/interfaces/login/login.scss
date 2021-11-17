@@ -160,4 +160,7 @@ button {
     margin-top: $logo-margin-top;
     color: $logo-color;
     font-size: $logo-size;
+
+    display: flex;
+    flex-direction: column;
 }
