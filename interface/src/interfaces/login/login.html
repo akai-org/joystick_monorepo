@@ -1,8 +1,8 @@
 <div id="background"></div>
 
 <div id="logo">
-    <i id="logo-gamepad" class="fas fa-gamepad"></i>
-    joystick
+  <i id="logo-gamepad" class="fas fa-gamepad"></i>
+  joystick
 </div>
 
 <div class="spacer-4"></div>
@@ -11,6 +11,7 @@
   <form @submit.prevent="onSubmit" method="post">
     <div class="form-background">
       <div class="spacer-05"></div>
+
       <div class="form-element">
         <label>ROOM CODE</label>
         <input
@@ -35,12 +36,13 @@
           maxlength="10"
         />
       </div>
+      
       <div class="spacer-1"></div>
-  </div>
+    </div>
 
-  <div class="spacer-1"></div>
+    <div class="spacer-1"></div>
 
-  <button type="submit" name="button">CONNECT</button>
+    <button type="submit" name="button">CONNECT</button>
   </form>
 
   <div class="spacer-2"></div>
