@@ -1,0 +1,39 @@
+<div id="background"></div>
+
+<div id="logo">
+    <i id="logo-gamepad" class="fas fa-gamepad"></i>
+    <h1>joystick</h1>
+</div>
+
+<div id="form-container">
+    <form @submit.prevent="onSubmit" method="post">
+    <div class="form-element">
+      <label>ROOM CODE</label>
+      <input
+        type="text"
+        name="room_code"
+        placeholder="CODE"
+        v-model="room_code"
+        required
+        maxlength="10"
+        autocomplete="off"
+      />
+    </div>
+    <div class="form-element">
+      <label>NICKNAME</label>
+      <input
+        type="text"
+        name="nickname"
+        placeholder="NAME"
+        v-model="nickname"
+        required
+        maxlength="10"
+      />
+    </div>
+    <div class="spacer"></div>
+    <button type="submit" name="button">
+        <h1> CONNECT </h1>
+        <i class="fas fa-spinner"></i>
+    </button>
+  </form>
+</div>
