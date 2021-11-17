@@ -107,27 +107,3 @@ $spacer-width: 90%;
         transform: rotate(359deg);
     }
 }
-
-// TODO: uncomment this when tryToFullscreen() is implemented
-// .fullscreen-btn {
-//     width: 100vw;
-//     height: 100vh;
-//     position: absolute;
-//     top: 0;
-//     left: 0;
-
-//     border: none;
-//     z-index: 2;
-
-//     background-color: $color-transparentbg;
-//     color: #fff;
-//     font-size: $warning-size;
-// }
-
-// :fullscreen .fullscreen-btn {
-//     visibility: hidden !important;
-// }
-
-// :not(:fullscreen) .fullscreen-btn {
-//     visibility: visible;
-// }
