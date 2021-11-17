@@ -18,6 +18,7 @@ $logo-size: 2.5rem;
 
 // login form
 $form-background-color: aliceblue;
+$form-width: 90vw;
 
 // label
 $label-text-color: #00000090;
@@ -31,9 +32,11 @@ $button-text-color: #000000c0;
 $button-press-duration: 2s;
 
 // form element
-$form-element-margin-top: 1.5rem;
+$form-element-margin-top: 1rem;
 $form-element-margin-bottom: 0.5rem;
 
+// spacer
+$spacer-height: 1rem;
 
 // =================
 
@@ -73,12 +76,13 @@ $tablet-breakpoint: 600px;
     width: 100vw;
     height: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
 form {
-    width: 90vw;
+    width: $form-width;
     height: auto;
     background-color: $form-background-color;
     justify-self: center;
@@ -129,7 +133,7 @@ form {
 }
 
 button {
-    width: 100%;
+    width: $form-width;
     height: 4rem;
 
     position: relative;
@@ -149,7 +153,7 @@ button {
 }
 
 .spacer {
-    height: .5rem;
+    height: $spacer-height;
 }
 
 #logo {
