@@ -22,21 +22,23 @@ $form-width: 90vw;
 
 // label
 $label-text-color: #00000090;
+$label-margin-bottom: 0.2rem;
 
 // input
 $input-font-size: 1.4rem;
+$input-height: 3rem;
 $input-background-color: #dce3e9;
 
 // button
 $button-text-color: #000000c0;
 $button-press-duration: 2s;
+$button-font-size: 2rem;
+$button-height: 4rem;
 
 // form element
 $form-element-margin-top: 1rem;
 $form-element-margin-bottom: 0.5rem;
 
-// spacer
-$spacer-height: 1rem;
 
 // =================
 
@@ -86,7 +88,7 @@ form {
     height: auto;
     background-color: $form-background-color;
     justify-self: center;
-    margin-top: 4rem;
+    // margin-top: 4rem;
     border-radius: 15px;
     box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 40px 0 rgba(0, 0, 0, 0.2);
 }
@@ -99,14 +101,13 @@ form {
     margin-bottom: $form-element-margin-bottom;
 
     label {
-        // text-align: left;
-        margin-bottom: 0.2rem;
+        margin-bottom: $label-margin-bottom;
         color: $label-text-color;
         font-weight: 700;
     }
 
     input {
-        height: 2rem + 1.5rem;
+        height: $input-height;
         font-size: $input-font-size;
         font-weight: 700;
         text-align: center;
@@ -134,7 +135,7 @@ form {
 
 button {
     width: $form-width;
-    height: 4rem;
+    height: $button-height;
 
     position: relative;
 
@@ -142,7 +143,7 @@ button {
     border-radius: 15px;
 
     background-color: $form-background-color;
-    font-size: 2rem;
+    font-size: $button-font-size;
     color: $button-text-color;
     font-weight: 700;
     text-align: center;
@@ -152,10 +153,6 @@ button {
     }
 }
 
-.spacer {
-    height: $spacer-height;
-}
-
 #logo {
     margin-top: $logo-margin-top;
     color: $logo-color;
@@ -163,4 +160,17 @@ button {
 
     display: flex;
     flex-direction: column;
+}
+
+.spacer-1 {
+    height: 1rem;
+}
+.spacer-2 {
+    height: 2rem;
+}
+.spacer-3 {
+    height: 3rem;
+}
+.spacer-4 {
+    height: 4rem;
 }
