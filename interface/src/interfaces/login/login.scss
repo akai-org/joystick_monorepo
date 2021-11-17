@@ -18,7 +18,7 @@ $logo-size: 2.5rem;
 
 // login form
 $form-background-color: aliceblue;
-$form-width: 90vw;
+$form-width: 0.8;
 
 // label
 $label-text-color: #00000090;
@@ -39,22 +39,10 @@ $button-height: 4rem;
 $form-element-margin-top: 1rem;
 $form-element-margin-bottom: 0.5rem;
 
-
 // =================
 
 // SCREENS
 $tablet-breakpoint: 600px;
-
-// phone
-@media (min-width:0px)  {
-    @import url('phone');
-}
-
-// tablet
-@media (min-width: $tablet-breakpoint)  {
-    @import url('tablet');
-}
-
 
 :root {
     background-color: $color-background;
@@ -84,7 +72,7 @@ $tablet-breakpoint: 600px;
 }
 
 form {
-    width: $form-width;
+    width: min($form-width * 100vw, $form-width * $tablet-breakpoint);
     height: auto;
     background-color: $form-background-color;
     justify-self: center;
@@ -134,7 +122,7 @@ form {
 }
 
 button {
-    width: $form-width;
+    width: min($form-width * 100vw, $form-width * $tablet-breakpoint);
     height: $button-height;
 
     position: relative;
