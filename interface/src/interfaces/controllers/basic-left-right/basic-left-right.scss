@@ -1,0 +1,107 @@
+// =========================
+//  config
+// =========================
+
+$color-active: #fdfdfd;
+$color-background: #000;
+$color-transparentbg: #000000d0;
+
+$button-relative-size: 75%;
+$button-arrow-size: 5rem;
+
+$rotate-warning-rotation-speed: 1.5s;
+$warning-size: 2rem;
+
+$divider-height: 90%;
+
+// =========================
+
+:root {
+    background-color: $color-background;
+}
+
+#btn-container {
+    display: flex;
+    flex-direction: row;
+
+    button {
+        border: none;
+
+        width: 50vw;
+        height: 100vh;
+
+        background-color: $color-background;
+        color: $color-active;
+        font-size: $button-arrow-size;
+        font-weight: 1000;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:active {
+            background-color: $color-active;
+            color: $color-background;
+        }
+    }
+}
+
+#rotate-warning {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 1;
+
+    background-color: $color-background;
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    h1 {
+        font-size: $warning-size;
+        padding-top: 2rem;
+    }
+
+    i {
+        font-size: $warning-size;
+    }
+}
+
+#divider {
+    position: absolute;
+    width: 1px;
+    height: $divider-height;
+    top: calc((100% - $divider-height) / 2);
+    left: 50%;
+
+    background-color: $color-active;
+
+    justify-self: center;
+}
+
+@media (orientation: landscape) {
+    #rotate-warning {
+        visibility: hidden;
+    }
+}
+
+@media (orientation: portrait) {
+    #rotate-warning {
+        visibility: visible;
+        i {
+            animation: rotation $rotate-warning-rotation-speed infinite linear;
+        }
+    }
+}
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    } to {
+        transform: rotate(359deg);
+    }
+}
