@@ -1,4 +1,4 @@
-package binaryPayload
+package comms
 
 const (
 	ArrowUp uint8 = iota << 1
@@ -15,3 +15,4 @@ const (
 	KeyUp uint8 = iota
 	KeyDown
 )
+

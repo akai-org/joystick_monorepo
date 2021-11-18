@@ -1,4 +1,4 @@
-package restapi
+package controller
 
 import (
 	"encoding/json"
@@ -7,16 +7,6 @@ import (
 
 type errorResponse struct {
 	Message string `json:"message"`
-}
-
-type playerRequest struct {
-	RoomCode string `json:"room_code"`
-	Nickname string `json:"nickname"`
-}
-
-type playerResponse struct {
-	Address   string `json:"address"`
-	Interface string `json:"interface"`
 }
 
 func jsonResponse(w http.ResponseWriter, response interface{}, code int) {

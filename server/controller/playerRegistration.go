@@ -1,4 +1,4 @@
-package restapi
+package controller
 
 import (
 	"akai.org.pl/joystick_server/games"
@@ -13,11 +13,20 @@ const (
 	messageIsNotCorrectJson    = "given message is not a valid json"
 	playerNameTooLongMessage   = "player nickname is too long"
 	maxAllowedNicknameLength   = 16
-	gameDoesntExistMessage     = "room with such code doesn't exist"
 	forbiddenCharsInPlayerName = "nickname contains forbidden characters, use alphanumeric ones and _"
 )
 
-func RegisterNewPlayer(w http.ResponseWriter, r *http.Request) {
+type playerRequest struct {
+	RoomCode string `json:"room_code"`
+	Nickname string `json:"nickname"`
+}
+
+type playerResponse struct {
+	Address   string `json:"address"`
+	Interface string `json:"interface"`
+}
+
+func (c *Controller) RegisterNewPlayer(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodOptions {
 		response := new(struct{})
 		jsonResponse(w, response, http.StatusNoContent)
@@ -44,11 +53,18 @@ func RegisterNewPlayer(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	player := games.Player{
+	player := &games.Player{
 		Nickname: payload.Nickname,
 	}
 
-	if err := games.AddPlayerToRoom(player, payload.RoomCode); err != nil {
+	gameRoom, err := c.engine.RoomManager.GetRoom(payload.RoomCode)
+	if err != nil {
+		response := errorResponse{Message: err.Error()}
+		jsonResponse(w, response, http.StatusForbidden)
+		return
+	}
+
+	if err := gameRoom.AddPlayer(player); err != nil {
 		response := errorResponse{Message: err.Error()}
 		jsonResponse(w, response, http.StatusForbidden)
 		return
@@ -56,7 +72,7 @@ func RegisterNewPlayer(w http.ResponseWriter, r *http.Request) {
 
 	response := playerResponse{
 		Address:   "Somethingthatwillbereplaced",
-		Interface: games.GetRoomInterface(payload.RoomCode),
+		Interface: gameRoom.Gui,
 	}
 
 	jsonResponse(w, response, http.StatusOK)
@@ -64,20 +80,10 @@ func RegisterNewPlayer(w http.ResponseWriter, r *http.Request) {
 }
 
 func (payload *playerRequest) isValid() error {
-	if err := validateNickname(payload.Nickname); err != nil {
-		return err
-	}
-	if !games.RoomExists(payload.RoomCode) {
-		return errors.New(gameDoesntExistMessage)
-	}
-	return nil
-}
-
-func validateNickname(nickname string) error {
-	if len(nickname) > maxAllowedNicknameLength {
+	if len(payload.Nickname) > maxAllowedNicknameLength {
 		return errors.New(playerNameTooLongMessage)
 	}
-	for _, char := range nickname {
+	for _, char := range payload.Nickname {
 		if !unicode.IsLetter(char) && !unicode.IsDigit(char) && char != '_' {
 			return errors.New(forbiddenCharsInPlayerName)
 		}
