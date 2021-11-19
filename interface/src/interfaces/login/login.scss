@@ -58,7 +58,7 @@ $tablet-breakpoint: 600px;
     width: calc(100vw - $background-offset-x);
     height: calc(100vh - $background-offset-y);
     z-index: -1;
-    background: url("../../assets/gamepad.png");
+    background: url("../assets/gamepad.png");
     background-repeat: repeat;
     background-size: $background-icon-size;
     opacity: $background-icon-opacity;
