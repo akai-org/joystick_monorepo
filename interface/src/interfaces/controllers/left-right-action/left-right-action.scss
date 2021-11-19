@@ -1,0 +1,30 @@
+$button-ratio: 2, 8, 2;
+
+
+
+@function sum-list-elem($list) {
+    $result: 0;
+    @each $elem in $list {
+        $result: $result + $elem;
+    }
+    @return $result;
+}
+
+$_button-ratio-sum: sum-list-elem($button-ratio);
+
+
+
+#btn-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.btn {
+    height: 100vh;
+}
+
+@for $index from 1 through length($button-ratio) {
+    .btn-#{$index} {
+        width: 100vw * ( nth($button-ratio, $index) / $_button-ratio-sum );
+    }
+}
