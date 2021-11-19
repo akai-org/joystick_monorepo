@@ -21,10 +21,29 @@ $_button-ratio-sum: sum-list-elem($button-ratio);
 
 .btn {
     height: 100vh;
+    border: none;
+    background-color: #000;
+    color: white;
 }
 
+$_divider-offset: 0;
 @for $index from 1 through length($button-ratio) {
+    $offset: 100vw * ( nth($button-ratio, $index) / $_button-ratio-sum );
+    $_divider-offset: $_divider-offset + $offset;
+
     .btn-#{$index} {
-        width: 100vw * ( nth($button-ratio, $index) / $_button-ratio-sum );
+        width: $offset;
     }
+    
+    .divider-#{$index} {
+        left: $_divider-offset;
+    }
+}
+
+.divider {
+    position: absolute;
+    background-color: #fff;
+    top: 5vh;
+    width: 1px;
+    height: 90vh;
 }
