@@ -1,6 +1,13 @@
+// ===================
+//  CONFIG
+// ===================
+
+// ratio of how much space each button takes (width only)
 $button-ratio: 2, 8, 2;
 
 
+
+// ===================
 
 @function sum-list-elem($list) {
     $result: 0;
@@ -19,31 +26,36 @@ $_button-ratio-sum: sum-list-elem($button-ratio);
     flex-direction: row;
 }
 
-.btn {
+// stylesheet for all buttons
+@mixin button-style {
     height: 100vh;
     border: none;
     background-color: #000;
     color: white;
 }
 
-$_divider-offset: 0;
-@for $index from 1 through length($button-ratio) {
-    $offset: 100vw * ( nth($button-ratio, $index) / $_button-ratio-sum );
-    $_divider-offset: $_divider-offset + $offset;
-
-    .btn-#{$index} {
-        width: $offset;
-    }
-    
-    .divider-#{$index} {
-        left: $_divider-offset;
-    }
-}
-
-.divider {
+// stylesheet for all dividers
+@mixin divider-style {
     position: absolute;
     background-color: #fff;
     top: 5vh;
     width: 1px;
     height: 90vh;
+}
+
+// set up the layout
+$_divider-offset: 0;
+@for $index from 1 through length($button-ratio) {
+    $offset: 100vw * ( nth($button-ratio, $index) / $_button-ratio-sum );
+    $_divider-offset: $_divider-offset + $offset;
+
+    .button-#{$index} {
+        @include button-style;
+        width: $offset;
+    }
+
+    .divider-#{$index} {
+        @include divider-style;
+        left: $_divider-offset;
+    }
 }
