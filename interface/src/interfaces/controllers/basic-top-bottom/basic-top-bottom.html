@@ -1,9 +1,9 @@
 <div id="btn-container">
-    <button @touchstart="" @touchend="">
+    <button @touchstart="this.$emit('arrow-up-down')" @touchend="this.$emit('arrow-up-up')">
         <i class="fas fa-arrow-up"></i>
     </button>
     
-    <button @touchstart="" @touchend="">
+    <button @touchstart="this.$emit('arrow-down-down')" @touchend="this.$emit('arrow-down-up')">
         <i class="fas fa-arrow-down"></i>
     </button>
 </div>
