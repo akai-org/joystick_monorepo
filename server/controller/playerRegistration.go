@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"akai.org.pl/joystick_server/games"
+	"akai.org.pl/joystick_server/game"
 	"encoding/json"
 	"errors"
 	"net/http"
@@ -26,7 +26,7 @@ type playerResponse struct {
 	Interface string `json:"interface"`
 }
 
-func (c *Controller) RegisterNewPlayer(w http.ResponseWriter, r *http.Request) {
+func RegisterNewPlayer(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodOptions {
 		response := new(struct{})
 		jsonResponse(w, response, http.StatusNoContent)
@@ -53,11 +53,11 @@ func (c *Controller) RegisterNewPlayer(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	player := &games.Player{
+	player := &game.Player{
 		Nickname: payload.Nickname,
 	}
 
-	gameRoom, err := c.engine.RoomManager.GetRoom(payload.RoomCode)
+	gameRoom, err := eng.GetRoom(payload.RoomCode)
 	if err != nil {
 		response := errorResponse{Message: err.Error()}
 		jsonResponse(w, response, http.StatusForbidden)

@@ -2,14 +2,13 @@
 package engine
 
 import (
-	"akai.org.pl/joystick_server/room"
+	"akai.org.pl/joystick_server/game"
 )
 
 type Engine struct {
-	RoomManager *room.Manager
-	//TODO playerManager player.Manager, etc.
+	*game.Manager
 }
 
-func NewEngine(rm *room.Manager) Engine {
+func NewEngine(rm *game.Manager) Engine {
 	return Engine{rm}
 }

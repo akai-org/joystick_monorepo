@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"akai.org.pl/joystick_server/room"
+	"akai.org.pl/joystick_server/game"
 	"encoding/json"
 	"net/http"
 )
@@ -16,7 +16,7 @@ type roomCreateResponse struct {
 	Code    string `json:"code"`
 }
 
-func (c *Controller) CreateRoom(w http.ResponseWriter, r *http.Request) {
+func CreateRoom(w http.ResponseWriter, r *http.Request) {
 	var payload roomCreateRequest
 
 	if err := json.NewDecoder(r.Body).Decode(&payload); err != nil {
@@ -25,11 +25,10 @@ func (c *Controller) CreateRoom(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	newRoom := room.NewRoom(payload.Gui, payload.MaxPlayer)
+	newRoom := game.NewRoom(payload.Gui, payload.MaxPlayer)
 
-	// fajnie byloby nie dostawac sie do room managera przez engine. Pomysly? Engine jako fasada
-	code := c.engine.RoomManager.GenerateCode()
-	if err := c.engine.RoomManager.AppendRoomWithCode(newRoom, code); err != nil {
+	code := eng.GenerateCode()
+	if err := eng.AppendRoomWithCode(newRoom, code); err != nil {
 		response := errorResponse{Message: err.Error()}
 		jsonResponse(w, response, http.StatusBadRequest)
 		return

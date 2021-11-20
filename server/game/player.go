@@ -1,4 +1,4 @@
-package games
+package game
 
 type Player struct {
 	Nickname string

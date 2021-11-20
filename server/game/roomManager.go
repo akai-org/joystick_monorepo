@@ -1,4 +1,4 @@
-package room
+package game
 
 import (
 	"errors"
@@ -6,15 +6,15 @@ import (
 )
 
 type Manager struct {
-	rooms map[string]*Room
+	rooms map[string]*room
 }
 
 const (
-	noSuchRoomMessage = "there is no room with such code"
-	roomAlreadyExists = "room with such code already exists"
+	noSuchRoomMessage = "there is no game with such code"
+	roomAlreadyExists = "game with such code already exists"
 )
 
-func New() *Manager {
+func NewRoomManager() *Manager {
 	return &Manager{}
 }
 
@@ -26,7 +26,7 @@ func (manager *Manager) GenerateCode() string {
 	return string(random)
 }
 
-func (manager *Manager) AppendRoomWithCode(room *Room, code string) error {
+func (manager *Manager) AppendRoomWithCode(room *room, code string) error {
 	if _, ok := manager.rooms[code]; ok {
 		return errors.New(roomAlreadyExists)
 	}
@@ -34,7 +34,7 @@ func (manager *Manager) AppendRoomWithCode(room *Room, code string) error {
 	return nil
 }
 
-func (manager *Manager) GetRoom(code string) (*Room, error) {
+func (manager *Manager) GetRoom(code string) (*room, error) {
 	if r, ok := manager.rooms[code]; !ok {
 		return nil, errors.New(noSuchRoomMessage)
 	} else {

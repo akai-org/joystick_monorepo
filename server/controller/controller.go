@@ -1,18 +1,12 @@
-// The controller package provides RESTfull api for joystick engine
 package controller
 
 import (
 	"akai.org.pl/joystick_server/engine"
-	"akai.org.pl/joystick_server/room"
+	"akai.org.pl/joystick_server/game"
 )
 
-type Controller struct {
-	engine engine.Engine
-}
+var eng engine.Engine
 
-func New() *Controller {
-	roomManager := room.New()
-	return &Controller{
-		engine: engine.NewEngine(roomManager),
-	}
+func init() {
+	eng = engine.NewEngine(game.NewRoomManager())
 }
