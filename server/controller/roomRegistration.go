@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"akai.org.pl/joystick_server/game"
 	"encoding/json"
 	"net/http"
 )
@@ -17,6 +16,18 @@ type roomCreateResponse struct {
 }
 
 func CreateRoom(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodOptions {
+		response := new(struct{})
+		jsonResponse(w, response, http.StatusNoContent)
+		return
+	}
+
+	if r.Method != http.MethodPost {
+		response := errorResponse{Message: methodNotAllowedMessage}
+		jsonResponse(w, response, http.StatusMethodNotAllowed)
+		return
+	}
+
 	var payload roomCreateRequest
 
 	if err := json.NewDecoder(r.Body).Decode(&payload); err != nil {
@@ -25,20 +36,16 @@ func CreateRoom(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	newRoom := game.NewRoom(payload.Gui, payload.MaxPlayer)
-
-	code := eng.GenerateCode()
-	if err := eng.AppendRoomWithCode(newRoom, code); err != nil {
+	if code, err := eng.CreateNewRoom(payload.Gui, payload.MaxPlayer); err != nil {
 		response := errorResponse{Message: err.Error()}
 		jsonResponse(w, response, http.StatusBadRequest)
 		return
+	} else {
+		response := roomCreateResponse{
+			Address: "todo",
+			Code:    code,
+		}
+		jsonResponse(w, response, http.StatusOK)
+		return
 	}
-
-	response := roomCreateResponse{
-		Address: "asdasdadadsa",
-		Code: code,
- 	}
-
-	jsonResponse(w, response, http.StatusOK)
-	return
 }
