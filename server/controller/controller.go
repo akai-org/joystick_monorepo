@@ -5,8 +5,12 @@ import (
 	"akai.org.pl/joystick_server/game"
 )
 
-var eng engine.Engine
+type controller struct {
+	engine engine.Engine
+}
 
-func init() {
-	eng = engine.NewEngine(game.NewRoomManager())
+func New() *controller {
+	return &controller{
+		engine: engine.NewEngine(game.NewRoomManager()),
+	}
 }
