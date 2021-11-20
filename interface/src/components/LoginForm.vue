@@ -1,4 +1,57 @@
-<template src="../interfaces/login/login.html"></template>
+<template>
+<div>
+<div id="background"></div>
+
+<div id="logo">
+  <i id="logo-gamepad" class="fas fa-gamepad"></i>
+  joystick
+</div>
+
+<div class="spacer-4"></div>
+
+<div id="form-container">
+  <form @submit.prevent="onSubmit" method="post">
+    <div class="form-background">
+      <div class="spacer-05"></div>
+
+      <div class="form-element">
+        <label>ROOM CODE</label>
+        <input
+          type="text"
+          name="room_code"
+          placeholder="CODE"
+          v-model="room_code"
+          required
+          maxlength="10"
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="form-element">
+        <label>NICKNAME</label>
+        <input
+          type="text"
+          name="nickname"
+          placeholder="NAME"
+          v-model="nickname"
+          required
+          maxlength="10"
+        />
+      </div>
+
+      <div class="spacer-1"></div>
+    </div>
+
+    <div class="spacer-1"></div>
+
+    <button type="submit" name="button">CONNECT</button>
+  </form>
+
+  <div class="spacer-2"></div>
+
+</div>
+</div>
+</template>
 
 <script>
 import axios from 'axios'
@@ -34,6 +87,4 @@ export default {
 }
 </script>
 
-<style lang="scss">
-@import '../interfaces/login/login.scss';
-</style>
+<style lang="scss" src="../interfaces/login/login.scss"></style>
