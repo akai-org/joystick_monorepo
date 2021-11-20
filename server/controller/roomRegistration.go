@@ -16,7 +16,7 @@ type roomCreateResponse struct {
 	Code    string `json:"code"`
 }
 
-func CreateRoom(w http.ResponseWriter, r *http.Request) {
+func (c *controller) CreateRoom(w http.ResponseWriter, r *http.Request) {
 	var payload roomCreateRequest
 
 	if err := json.NewDecoder(r.Body).Decode(&payload); err != nil {
@@ -27,8 +27,8 @@ func CreateRoom(w http.ResponseWriter, r *http.Request) {
 
 	newRoom := game.NewRoom(payload.Gui, payload.MaxPlayer)
 
-	code := eng.GenerateCode()
-	if err := eng.AppendRoomWithCode(newRoom, code); err != nil {
+	code := c.engine.GenerateCode()
+	if err := c.engine.AppendRoomWithCode(newRoom, code); err != nil {
 		response := errorResponse{Message: err.Error()}
 		jsonResponse(w, response, http.StatusBadRequest)
 		return
