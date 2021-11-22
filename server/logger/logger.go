@@ -48,7 +48,7 @@ func (logger *Logger) Info(message string) {
 
 
 func (logger *Logger) Warning(message string) {
-logger.warningLogger.Print(message)
+	logger.warningLogger.Print(message)
 }
 
 
