@@ -1,53 +1,62 @@
 package logger
 
 import (
-	"flag"
 	"log"
 	"os"
+	"io/ioutil"
+	"io"
 )
 
-var (
-	isVerbose bool
-	logger *log.Logger
-)
+const loggerFlags = log.Ldate | log.Ltime
 
-func InitializeLogger() {
-	verbose := flag.Bool("verbose", false, "Enables verbose logger")
-	flag.Parse()
-	if *verbose {
-		isVerbose = true
-	} else {
-		isVerbose = false
+
+type Logger struct{
+	debugLogger log.Logger
+	infoLogger log.Logger
+	warningLogger log.Logger
+	errorLogger log.Logger
+	fatalLogger log.Logger
+}
+
+
+func InitializeLogger(level uint8) *Logger {
+	return &Logger{
+        debugLogger:   *log.New(AssignWriter(1, level), "", loggerFlags),
+        infoLogger:    *log.New(AssignWriter(2, level), "", loggerFlags),
+        warningLogger: *log.New(AssignWriter(3, level), "", loggerFlags),
+        errorLogger:   *log.New(AssignWriter(4, level), "", loggerFlags),
+        fatalLogger:   *log.New(AssignWriter(5, level), "", loggerFlags),
+    }
+}
+
+func AssignWriter(level uint8, givenLevel uint8) io.Writer{
+	if givenLevel<level{
+		return ioutil.Discard
 	}
+	return os.Stderr
 }
 
-func Debug(message string) {
-	if isVerbose{
-		logger = log.New(os.Stderr, "", log.Ldate|log.Lmicroseconds)
-		logger.Print(message)
-	}
+
+func (logger *Logger) Debug(message string) {
+	logger.debugLogger.Print(message)
 }
 
-func Info(message string) {
-	if isVerbose{
-		logger = log.New(os.Stderr, "", log.Ldate|log.Lmicroseconds)
-		logger.Print(message)
-	}
+
+func (logger *Logger) Info(message string) {
+	logger.infoLogger.Print(message)
 }
 
-func Warning(message string) {
-	if isVerbose{
-		logger = log.New(os.Stderr, "", log.Ldate|log.Lmicroseconds)
-		logger.Print(message)
-	}
+
+func (logger *Logger) Warning(message string) {
+logger.warningLogger.Print(message)
 }
 
-func Error(message string) {
-	logger = log.New(os.Stderr, "", log.Ldate|log.Lmicroseconds)
-	logger.Print(message)
+
+func (logger *Logger) Error(message string) {
+	logger.errorLogger.Print(message)
 }
 
-func Fatal(message string) {
-	logger = log.New(os.Stderr, "", log.Ldate|log.Lmicroseconds)
-	logger.Print(message)
+
+func (logger *Logger) Fatal(message string) {
+	logger.fatalLogger.Print(message)
 }
