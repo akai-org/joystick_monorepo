@@ -2,9 +2,11 @@
 
 <script>
 
+import { events } from '../../InterfacesEvents'
+
 export default {
   name: 'BasicTopBottomInterface',
-  emits: ['arrow-up-down', 'arrow-up-up', 'arrow-down-down', 'arrow-down-up']
+  emits: [events.arrowUpDown, events.arrowUpUp, events.arrowDownDown, events.arrowDownUp]
 }
 </script>
 

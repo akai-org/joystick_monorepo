@@ -1,9 +1,12 @@
 <template src="./basic-left-right.html"></template>
 
 <script>
+
+import { events } from '../../InterfacesEvents'
+
 export default {
   name: 'BasicLeftRightInterface',
-  emits: ['arrow-left-down', 'arrow-left-up', 'arrow-right-down', 'arrow-right-up']
+  emits: [events.arrowLeftDown, events.arrowLeftUp, events.arrowRightDown, events.arrowRightUp]
 }
 </script>
 
