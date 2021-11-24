@@ -1,3 +1,6 @@
+<script setup>
+import BasicLeftRight from './controllers/basic-left-right/BasicLeftRight.vue'
+</script>
 <template>
     <!-- <BasicTopBottom
         @arrow-up-down="arrowUpDown"
@@ -13,44 +16,35 @@
 
 <script>
 // import BasicTopBottom from './controllers/basic-top-bottom/BasicTopBottom.vue'
-import BasicLeftRight from './controllers/basic-left-right/BasicLeftRight.vue'
 import { keyActions as ka } from './Keys'
+import { dispatchPressButton } from '../store/actionCreator'
 
 export default {
   name: 'Game',
-  components: {
-    // BasicTopBottom,
-    BasicLeftRight
-  },
-  data: function () {
-    return {
-      interface: 'some interface'
-    }
-  },
   methods: {
     arrowUpDown () {
-      this.$store.dispatch('pressButton', { key: ka.ARROW_UP, keyState: ka.KEY_DOWN })
+      dispatchPressButton({ key: ka.ARROW_UP, keyState: ka.KEY_DOWN })
     },
     arrowUpUp () {
-      this.$store.dispatch('pressButton', { key: ka.ARROW_UP, keyState: ka.KEY_UP })
+      dispatchPressButton({ key: ka.ARROW_UP, keyState: ka.KEY_UP })
     },
     arrowDownDown () {
-      this.$store.dispatch('pressButton', { key: ka.ARROW_DOWN, keyState: ka.KEY_DOWN })
+      dispatchPressButton({ key: ka.ARROW_DOWN, keyState: ka.KEY_DOWN })
     },
     arrowDownUp () {
-      this.$store.dispatch('pressButton', { key: ka.ARROW_DOWN, keyState: ka.KEY_UP })
+      dispatchPressButton({ key: ka.ARROW_DOWN, keyState: ka.KEY_UP })
     },
     arrowLeftDown () {
-      this.$store.dispatch('pressButton', { key: ka.ARROW_LEFT, keyState: ka.KEY_DOWN })
+      dispatchPressButton({ key: ka.ARROW_LEFT, keyState: ka.KEY_DOWN })
     },
     arrowLeftUp () {
-      this.$store.dispatch('pressButton', { key: ka.ARROW_LEFT, keyState: ka.KEY_DOWN })
+      dispatchPressButton({ key: ka.ARROW_LEFT, keyState: ka.KEY_UP })
     },
     arrowRightDown () {
-      this.$store.dispatch('pressButton', { key: ka.ARROW_RIGHT, keyState: ka.KEY_DOWN })
+      dispatchPressButton({ key: ka.ARROW_RIGHT, keyState: ka.KEY_DOWN })
     },
     arrowRightUp () {
-      this.$store.dispatch('pressButton', { key: ka.ARROW_RIGHT, keyState: ka.KEY_UP })
+      dispatchPressButton({ key: ka.ARROW_RIGHT, keyState: ka.KEY_UP })
     }
   },
   mounted: function () {
