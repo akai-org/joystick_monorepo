@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <p>Hello</p>
     <router-view />
   </div>
 </template>
@@ -10,3 +9,5 @@ export default {
   name: 'App'
 }
 </script>
+
+<style lang="scss" src="./interfaces/main.scss"></style>
