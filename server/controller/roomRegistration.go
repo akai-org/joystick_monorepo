@@ -15,7 +15,7 @@ type roomCreateResponse struct {
 	Code    string `json:"code"`
 }
 
-func (c *controller) CreateRoom(w http.ResponseWriter, r *http.Request) {
+func (c *controller) createRoom(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodOptions {
 		response := new(struct{})
 		jsonResponse(w, response, http.StatusNoContent)
@@ -36,14 +36,14 @@ func (c *controller) CreateRoom(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if room, err := c.engine.CreateNewRoom(payload.Gui, payload.MaxPlayer); err != nil {
+	if code, err := c.engine.CreateNewRoom(payload.Gui, payload.MaxPlayer); err != nil {
 		response := errorResponse{Message: err.Error()}
 		jsonResponse(w, response, http.StatusBadRequest)
 		return
 	} else {
 		response := roomCreateResponse{
 			Address: "todo",
-			Code:    room.Code,
+			Code:    code,
 		}
 		jsonResponse(w, response, http.StatusOK)
 		return

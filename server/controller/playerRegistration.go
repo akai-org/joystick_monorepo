@@ -25,7 +25,7 @@ type playerResponse struct {
 	Interface string `json:"interface"`
 }
 
-func (c *controller) RegisterNewPlayer(w http.ResponseWriter, r *http.Request) {
+func (c *controller) registerNewPlayer(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodOptions {
 		response := new(struct{})
 		jsonResponse(w, response, http.StatusNoContent)

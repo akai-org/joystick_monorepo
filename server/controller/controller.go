@@ -3,7 +3,9 @@ package controller
 import (
 	"akai.org.pl/joystick_server/engine"
 	"akai.org.pl/joystick_server/game"
+	"fmt"
 	"github.com/gorilla/websocket"
+	"log"
 	"net/http"
 )
 
@@ -21,4 +23,12 @@ func New() *controller {
 		engine: engine.NewEngine(game.NewRoomManager(), game.NewPlayerManager()),
 		upgrader: upgrader,
 	}
+}
+
+func (c *controller) Listen() {
+	fmt.Println("Began listening...")
+	http.HandleFunc("/player/socket", c.playerSocketHandler)
+	http.HandleFunc("/join", c.registerNewPlayer)
+	http.HandleFunc("/create", c.createRoom)
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }

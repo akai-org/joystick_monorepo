@@ -12,7 +12,7 @@ type initialWsPlayerMessage struct {
 	GlobalID string `json:"global_id"`
 }
 
-func (c *controller) PlayerSocketHandler(w http.ResponseWriter, r *http.Request) {
+func (c *controller) playerSocketHandler(w http.ResponseWriter, r *http.Request) {
 	// Upgrade our raw HTTP connection to a websocket based one
 	conn, err := c.upgrader.Upgrade(w, r, nil)
 	if err != nil {
