@@ -15,7 +15,9 @@ const (
 )
 
 func NewRoomManager() *RoomManager {
-	return &RoomManager{}
+	return &RoomManager{
+		make(map[string]*room),
+	}
 }
 
 func (manager *RoomManager) appendRoomWithCode(room *room, code string) error {

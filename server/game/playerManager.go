@@ -14,7 +14,9 @@ const (
 )
 
 func NewPlayerManager() *PlayerManager {
-	return &PlayerManager{}
+	return &PlayerManager{
+		make(map[string]*player),
+	}
 }
 
 func (manager *PlayerManager) GetPlayer(id string) (*player, error) {
