@@ -18,7 +18,7 @@ func New() *controller {
 		return true
 	}
 	return &controller{
-		engine: engine.NewEngine(game.NewRoomManager()),
+		engine: engine.NewEngine(game.NewRoomManager(), game.NewPlayerManager()),
 		upgrader: upgrader,
 	}
 }

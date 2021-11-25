@@ -36,14 +36,14 @@ func (c *controller) CreateRoom(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if code, err := c.engine.CreateNewRoom(payload.Gui, payload.MaxPlayer); err != nil {
+	if room, err := c.engine.CreateNewRoom(payload.Gui, payload.MaxPlayer); err != nil {
 		response := errorResponse{Message: err.Error()}
 		jsonResponse(w, response, http.StatusBadRequest)
 		return
 	} else {
 		response := roomCreateResponse{
 			Address: "todo",
-			Code:    code,
+			Code:    room.Code,
 		}
 		jsonResponse(w, response, http.StatusOK)
 		return

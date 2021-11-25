@@ -5,8 +5,6 @@ import (
 	"errors"
 	"net/http"
 	"unicode"
-
-	"akai.org.pl/joystick_server/game"
 )
 
 const (
@@ -54,9 +52,7 @@ func (c *controller) RegisterNewPlayer(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	player := &game.Player{
-		Nickname: payload.Nickname,
-	}
+	player := c.engine.CreateNewPlayer(payload.Nickname)
 
 	gameRoom, err := c.engine.GetRoom(payload.RoomCode)
 	if err != nil {
