@@ -27,7 +27,7 @@ func (manager *PlayerManager) GetPlayer(id string) (*player, error) {
 	}
 }
 
-func (manager *PlayerManager) CreateNewPlayer(nickname string) (*player) {
+func (manager *PlayerManager) CreateNewPlayer(nickname string) (*player, string) {
 	player := NewPlayer(nickname)
 	code := generateCode(playerCodeLength)
 
@@ -40,7 +40,7 @@ func (manager *PlayerManager) CreateNewPlayer(nickname string) (*player) {
 		continue
 	}
 
-	return player
+	return player, code
 }
 
 func (manager *PlayerManager) appendPlayerWithCode(player *player, code string) error {

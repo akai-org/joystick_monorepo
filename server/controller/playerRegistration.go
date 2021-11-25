@@ -11,7 +11,9 @@ const (
 	methodNotAllowedMessage    = "method not allowed, use POST instead"
 	messageIsNotCorrectJson    = "given message is not a valid json"
 	playerNameTooLongMessage   = "player nickname is too long"
+	playerNameTooShortMessage  = "player nickname is too short"
 	maxAllowedNicknameLength   = 16
+	minAllowedNicknameLength   = 2
 	forbiddenCharsInPlayerName = "nickname contains forbidden characters, use alphanumeric ones and _"
 )
 
@@ -21,8 +23,8 @@ type playerRequest struct {
 }
 
 type playerResponse struct {
-	Address   string `json:"address"`
-	Interface string `json:"interface"`
+	GlobalId string `json:"global_id"`
+	Gui      string `json:"gui"`
 }
 
 func (c *controller) registerNewPlayer(w http.ResponseWriter, r *http.Request) {
@@ -52,7 +54,7 @@ func (c *controller) registerNewPlayer(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	player := c.engine.CreateNewPlayer(payload.Nickname)
+	player, code := c.engine.CreateNewPlayer(payload.Nickname)
 
 	gameRoom, err := c.engine.GetRoom(payload.RoomCode)
 	if err != nil {
@@ -68,8 +70,8 @@ func (c *controller) registerNewPlayer(w http.ResponseWriter, r *http.Request) {
 	}
 
 	response := playerResponse{
-		Address:   "Somethingthatwillbereplaced",
-		Interface: gameRoom.Gui,
+		GlobalId: code,
+		Gui:      gameRoom.Gui,
 	}
 
 	jsonResponse(w, response, http.StatusOK)
@@ -78,6 +80,9 @@ func (c *controller) registerNewPlayer(w http.ResponseWriter, r *http.Request) {
 func (payload *playerRequest) isValid() error {
 	if len(payload.Nickname) > maxAllowedNicknameLength {
 		return errors.New(playerNameTooLongMessage)
+	}
+	if len(payload.Nickname) < minAllowedNicknameLength {
+		return errors.New(playerNameTooShortMessage)
 	}
 	for _, char := range payload.Nickname {
 		if !unicode.IsLetter(char) && !unicode.IsDigit(char) && char != '_' {
