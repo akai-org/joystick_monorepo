@@ -2,11 +2,6 @@
 import BasicLeftRight from './controllers/basic-left-right/BasicLeftRight.vue'
 </script>
 <template>
-    <!-- <BasicTopBottom
-        @arrow-up-down="arrowUpDown"
-        @arrow-up-up="arrowUpUp"
-        @arrow-down-down="arrowDownDown"
-        @arrow-down-up="arrowDownUp" /> -->
     <BasicLeftRight
         @arrow-left-down="arrowLeftDown"
         @arrow-left-up="arrowLeftUp"
@@ -15,7 +10,6 @@ import BasicLeftRight from './controllers/basic-left-right/BasicLeftRight.vue'
 </template>
 
 <script>
-// import BasicTopBottom from './controllers/basic-top-bottom/BasicTopBottom.vue'
 import { keyActions as ka } from './Keys'
 import { dispatchPressButton } from '../store/actionCreator'
 
