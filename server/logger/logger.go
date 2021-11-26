@@ -7,7 +7,16 @@ import (
 	"io"
 )
 
+
 const loggerFlags = log.Ldate | log.Ltime
+
+const (
+    DebugLevel uint8 = iota+1
+    InfoLevel
+    WarningLevel
+    ErrorLevel
+    FatalLevel
+)
 
 
 type Logger struct{
@@ -19,18 +28,19 @@ type Logger struct{
 }
 
 
-func InitializeLogger(level uint8) *Logger {
+func New(level uint8) *Logger {
 	return &Logger{
-        debugLogger:   *log.New(AssignWriter(1, level), "", loggerFlags),
-        infoLogger:    *log.New(AssignWriter(2, level), "", loggerFlags),
-        warningLogger: *log.New(AssignWriter(3, level), "", loggerFlags),
-        errorLogger:   *log.New(AssignWriter(4, level), "", loggerFlags),
-        fatalLogger:   *log.New(AssignWriter(5, level), "", loggerFlags),
+        debugLogger:   *log.New(assignWriter(DebugLevel, level), "", loggerFlags),
+        infoLogger:    *log.New(assignWriter(InfoLevel, level), "", loggerFlags),
+        warningLogger: *log.New(assignWriter(WarningLevel, level), "", loggerFlags),
+        errorLogger:   *log.New(assignWriter(ErrorLevel, level), "", loggerFlags),
+        fatalLogger:   *log.New(assignWriter(FatalLevel, level), "", loggerFlags),
     }
 }
 
-func AssignWriter(level uint8, givenLevel uint8) io.Writer{
-	if givenLevel<level{
+
+func assignWriter(level uint8, givenLevel uint8) io.Writer{
+	if givenLevel>level{
 		return ioutil.Discard
 	}
 	return os.Stderr
@@ -48,7 +58,7 @@ func (logger *Logger) Info(message string) {
 
 
 func (logger *Logger) Warning(message string) {
-logger.warningLogger.Print(message)
+	logger.warningLogger.Print(message)
 }
 
 
