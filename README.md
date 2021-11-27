@@ -45,7 +45,7 @@ a. odpowiedź w przypadku pomyślnego utworzenia pokoju:
 kod 200 ok
 {
     "room_code": "kod pokoju",
-    "address": "http://servergo/conns/unikatowy_uri_do_komunikacji_przez_ws
+    "global_id": "someglobalid"
 }
 ```
 
@@ -56,6 +56,36 @@ kod 400 user error
     message: "jakaś wiadomość co poszło nie tak"
 }
 ```
+---
+#### Połączenie się gry
+
+1) **Host gry**:
+podłączenie się do ws, wysłanie wiadomości autoryzacyjnej:
+```
+WS: /game/socket
+{"global_id": "someglobalid"}
+```
+wiadomość musi być typu tekstowego, musi być jsonem i
+zawierać taką treść, w miejscu someglobalid powinien być przesłany
+global_id uzyskany podczas rejestracji gry. Jeżeli wiadomość będzie inna
+lub niepoprawna to serwer zamknie połączenie ws i trzeba próbować jeszcze raz.
+
+2) **Serwer** - jeżeli wiadomość jest poprawna to utrzymuje połączenie.
+Kolejne wiadomości są wysyłane przez serwer:
+- W formacie binarnym przyjmuje
+informacje o akcjach graczy, tj. 16 bitowe informacje, z czego pierwsze
+8 bitow jest dla identyfikacji gracza, a drugie dla identyfikacji akcji.
+8-bitowy identyfikator gracza jest unikatowy w obrębie jednej gry.
+- W formacie tekstowym  przyjmuje informacje o wyjątkowych zdarzeniach. 
+  - dołączenie gracza
+    ```json
+        {"event":  "player_joined", "id":  22}
+    ```
+  - odejście gracza
+    ```json
+        {"event":  "player_left", "id":  22}
+    ```
+
 
 ### Serwer <-> joystick
 
@@ -76,8 +106,8 @@ a. odpowiedź w przypadku pomyślnego zarejestrowania gracza:
 ```
 kod 200 ok
 {
-    "interface": "nazwa interfejsu",
-    "address": "http://servergo/conns/unikatowy_uri_do_komunikacji_przez_ws"
+    "gui": "nazwa interfejsu",
+    "global_id": "someglobalidforplayer"
 }
 ```
 
@@ -88,3 +118,21 @@ kod 400 user error
     message: "jakaś wiadomość co poszło nie tak"
 }
 ```
+---
+#### Połączenie się gracza 
+
+1) **Gracz**:
+podłączenie się do ws, wysłanie wiadomości autoryzacyjnej:
+```
+WS: /player/socket
+{"global_id": "someglobalid"}
+```
+wiadomość musi być typu tekstowego, musi być jsonem i 
+zawierać taką treść, w miejscu someglobalid powinien być przesłany
+global_id uzyskany podczas rejestracji gracza. Jeżeli wiadomość będzie inna
+lub niepoprawna to serwer zamknie połączenie ws i trzeba próbować jeszcze raz.
+
+2) **Serwer**:
+jeżeli wiadomość jest poprawna to utrzymuje połączenie. 
+Kolejne wysyłane przez gracza wiadomości muszą być typu binarnego,
+zawierać informację nt przycisku.
