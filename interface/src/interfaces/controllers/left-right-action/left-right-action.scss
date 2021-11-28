@@ -2,37 +2,25 @@
 //  CONFIG
 // ===================
 
-// ratio of how much space each button takes (width only)
-$button-ratio: 2, 8, 2;
+$side-button-width: 20vw;
 
 $color-active: #fdfdfd;
 $color-background: #000;
 
-$button-arrow-size: 3rem;
+$button-side-arrow-size: 2rem;
+$button-center-arrow-size: 4rem;
 
+$divider-height: 90vh;
 
 
 // ===================
-
-@function sum-list-elem($list) {
-    $result: 0;
-    @each $elem in $list {
-        $result: $result + $elem;
-    }
-    @return $result;
-}
-
-$_button-ratio-sum: sum-list-elem($button-ratio);
-
-
 
 #btn-container {
     display: flex;
     flex-direction: row;
 }
 
-// stylesheet for all buttons
-@mixin button-style {
+.button {
     height: 100vh;
     border: none;
     background-color: $color-background;
@@ -46,30 +34,28 @@ $_button-ratio-sum: sum-list-elem($button-ratio);
     }
 }
 
-// stylesheet for all dividers
-@mixin divider-style {
+.button-side {
+    width: $side-button-width;
+    font-size: $button-side-arrow-size;
+}
+
+.button-center {
+    width: 100vw - ($side-button-width * 2);
+    font-size: $button-center-arrow-size;
+}
+
+.divider {
     position: absolute;
     background-color: #fff;
     top: 5vh;
     width: 1px;
-    height: 90vh;
+    height: $divider-height;
 }
 
-// set up the layout
-$_divider-offset: 0;
-@for $index from 1 through length($button-ratio) {
-    $ratio: nth($button-ratio, $index);
-    $offset: 100vw * ( $ratio / $_button-ratio-sum );
-    $_divider-offset: $_divider-offset + $offset;
+.divider-l {
+    left: $side-button-width;
+}
 
-    .button-#{$index} {
-        @include button-style;
-        width: $offset;
-        font-size: 1rem + 6rem * ( $ratio / $_button-ratio-sum );
-    }
-
-    .divider-#{$index} {
-        @include divider-style;
-        left: $_divider-offset;
-    }
+.divider-r {
+    right: $side-button-width;
 }
