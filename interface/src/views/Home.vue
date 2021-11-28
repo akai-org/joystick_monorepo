@@ -7,12 +7,12 @@
 
 <script>
 // @ is an alias to /src
-import WebsocketTestMessenger from '@/components/WebsocketTestMessenger.vue';
+import WebsocketTestMessenger from '@/components/WebsocketTestMessenger.vue'
 
 export default {
   name: 'Home',
   components: {
-    WebsocketTestMessenger,
-  },
-};
+    WebsocketTestMessenger
+  }
+}
 </script>

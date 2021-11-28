@@ -11,21 +11,21 @@
 export default {
   name: 'WebsocketTestMessenger',
   props: {
-    msg: String,
+    msg: String
   },
-  mounted() {
-    this.$store.dispatch('initWebsocketConnection');
+  mounted () {
+    this.$store.dispatch('initWebsocketConnection')
   },
-  data() {
+  data () {
     return {
-      toSend: '',
-    };
+      toSend: ''
+    }
   },
   methods: {
-    send() {
-      console.log('sending ', this.toSend);
-      this.$store.dispatch('pressButton', { key: 'ARROW_RIGHT', keyState: 'KEY_DOWN' });
-    },
-  },
-};
+    send () {
+      console.log('sending ', this.toSend)
+      this.$store.dispatch('pressButton', { key: 'ARROW_RIGHT', keyState: 'KEY_DOWN' })
+    }
+  }
+}
 </script>
