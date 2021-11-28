@@ -61,7 +61,8 @@ export default {
   data () {
     return {
       nickname: '',
-      room_code: ''
+      room_code: '',
+      interface_version: ''
     }
   },
   methods: {
