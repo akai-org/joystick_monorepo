@@ -4,7 +4,8 @@ import { PRESS_BUTTON } from './actions'
 
 export default createStore({
   state: {
-    socket: null
+    socket: null,
+    gui: null
   },
   mutations: {
     pressButton () {
@@ -14,6 +15,9 @@ export default createStore({
     },
     websocketConnectionAlreadyEstablished () {
 
+    },
+    saveInterface (state, gui) {
+      state.gui = gui
     }
   },
   actions: {
@@ -35,6 +39,9 @@ export default createStore({
       } else {
         commit('websocketConnectionAlreadyEstablished')
       }
+    },
+    saveInterface ({ commit }, gui) {
+      commit('saveInterface', gui)
     }
   },
   modules: {
