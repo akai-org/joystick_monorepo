@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import { keyCodes, keyStates } from '../utils/keyCodes'
+import { PRESS_BUTTON } from './actions'
 
 export default createStore({
   state: {
@@ -24,7 +25,7 @@ export default createStore({
 
       state.socket.send(message)
 
-      commit('pressButton')
+      commit(PRESS_BUTTON)
     },
     // This action doesn't show up in devtools because it's called before devtools attach to the app
     initWebsocketConnection ({ commit, state }) {
