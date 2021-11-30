@@ -27,6 +27,16 @@
 
 import { events } from '../../InterfacesEvents'
 
+// when phone is rotated to this orientation we lock it
+const wantedOrientation = 'portrait'
+
+screen.orientation.addEventListener('change', function (e) {
+  const orientation = e.target.type
+  if (orientation === `${wantedOrientation}-primary` || orientation === `${wantedOrientation}-secondary`) {
+    screen.orientation.lock(orientation)
+  }
+})
+
 export default {
   name: 'BasicTopBottomInterface',
   emits: [events.arrowUpDown, events.arrowUpUp, events.arrowDownDown, events.arrowDownUp],
