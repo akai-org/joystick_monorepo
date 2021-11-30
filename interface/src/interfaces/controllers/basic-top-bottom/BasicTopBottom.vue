@@ -16,6 +16,10 @@
     </div>
 
     <div id="divider"></div>
+    <div class="fullscreen-btn" @click="tryToFullscreen()">
+      <i class="fas fa-expand-arrows-alt"></i>
+      Click to go fullscreen
+    </div>
   </div>
 </template>
 
@@ -28,6 +32,11 @@ export default {
   emits: [events.arrowUpDown, events.arrowUpUp, events.arrowDownDown, events.arrowDownUp],
   data: function () {
     return { ...events }
+  },
+  methods: {
+    tryToFullscreen () {
+      document.body.requestFullscreen()
+    }
   }
 }
 </script>
