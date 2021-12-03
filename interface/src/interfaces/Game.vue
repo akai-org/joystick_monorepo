@@ -11,8 +11,8 @@ import { Components } from './components'
 import { keyActions as ka } from './Keys'
 import { dispatchPressButton } from '../store/actionCreator'
 
-import BasicLeftRight from './controllers/basic-left-right/BasicLeftRight.vue'
-import BasicTopBottom from './controllers/basic-top-bottom/BasicTopBottom.vue'
+import ArrowsVertical from './controllers/basic-left-right/ArrowsVertical.vue'
+import ArrowsHorizontal from './controllers/basic-top-bottom/ArrowsHorizontal.vue'
 
 export default {
   name: 'Game',
@@ -22,8 +22,8 @@ export default {
     }
   },
   components: {
-    BasicLeftRight,
-    BasicTopBottom
+    ArrowsVertical,
+    ArrowsHorizontal
   },
   methods: {
     handleTouchStart (key) {
