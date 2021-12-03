@@ -1,20 +1,34 @@
-<script setup>
-import BasicLeftRight from './controllers/basic-left-right/BasicLeftRight.vue'
-</script>
 <template>
-    <BasicLeftRight
+    <!-- <BasicLeftRight
         @arrow-left-down="arrowLeftDown"
         @arrow-left-up="arrowLeftUp"
         @arrow-right-down="arrowRightDown"
-        @arrow-right-up="arrowRightUp" />
+        @arrow-right-up="arrowRightUp" /> -->
+        <component
+        @arrow-left-down="arrowLeftDown"
+        @arrow-left-up="arrowLeftUp"
+        @arrow-right-down="arrowRightDown"
+        @arrow-right-up="arrowRightUp" :is="this.components.get(this.$store.state.gui)" />
 </template>
 
 <script>
+
+import { Components } from './components'
 import { keyActions as ka } from './Keys'
 import { dispatchPressButton } from '../store/actionCreator'
 
+import BasicLeftRight from './controllers/basic-left-right/BasicLeftRight.vue'
+
 export default {
   name: 'Game',
+  data: function () {
+    return {
+      components: Components
+    }
+  },
+  components: {
+    BasicLeftRight
+  },
   methods: {
     arrowUpDown () {
       dispatchPressButton({ key: ka.ARROW_UP, keyState: ka.KEY_DOWN })

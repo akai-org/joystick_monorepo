@@ -1,11 +1,11 @@
 import { createStore } from 'vuex'
 import { keyCodes, keyStates } from '../utils/keyCodes'
-import { PRESS_BUTTON } from './actions'
+import { PRESS_BUTTON, SAVE_INTERFACE } from './actions'
 
 export default createStore({
   state: {
     socket: null,
-    gui: null
+    gui: 'arrows-horizontal'
   },
   mutations: {
     pressButton () {
@@ -41,7 +41,7 @@ export default createStore({
       }
     },
     saveInterface ({ commit }, gui) {
-      commit('saveInterface', gui)
+      commit(SAVE_INTERFACE, gui)
     }
   },
   modules: {
