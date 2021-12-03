@@ -1,14 +1,8 @@
 <template>
-    <!-- <BasicLeftRight
-        @arrow-left-down="arrowLeftDown"
-        @arrow-left-up="arrowLeftUp"
-        @arrow-right-down="arrowRightDown"
-        @arrow-right-up="arrowRightUp" /> -->
         <component
-        @arrow-left-down="arrowLeftDown"
-        @arrow-left-up="arrowLeftUp"
-        @arrow-right-down="arrowRightDown"
-        @arrow-right-up="arrowRightUp" :is="this.components.get(this.$store.state.gui)" />
+        @on-touchstart="handleTouchStart"
+        @on-touchend="handleTouchEnd"
+        :is="this.components.get(this.$store.state.gui)" ></component>
 </template>
 
 <script>
@@ -18,6 +12,7 @@ import { keyActions as ka } from './Keys'
 import { dispatchPressButton } from '../store/actionCreator'
 
 import BasicLeftRight from './controllers/basic-left-right/BasicLeftRight.vue'
+import BasicTopBottom from './controllers/basic-top-bottom/BasicTopBottom.vue'
 
 export default {
   name: 'Game',
@@ -27,32 +22,15 @@ export default {
     }
   },
   components: {
-    BasicLeftRight
+    BasicLeftRight,
+    BasicTopBottom
   },
   methods: {
-    arrowUpDown () {
-      dispatchPressButton({ key: ka.ARROW_UP, keyState: ka.KEY_DOWN })
+    handleTouchStart (key) {
+      dispatchPressButton({ key, keyState: ka.KEY_DOWN })
     },
-    arrowUpUp () {
-      dispatchPressButton({ key: ka.ARROW_UP, keyState: ka.KEY_UP })
-    },
-    arrowDownDown () {
-      dispatchPressButton({ key: ka.ARROW_DOWN, keyState: ka.KEY_DOWN })
-    },
-    arrowDownUp () {
-      dispatchPressButton({ key: ka.ARROW_DOWN, keyState: ka.KEY_UP })
-    },
-    arrowLeftDown () {
-      dispatchPressButton({ key: ka.ARROW_LEFT, keyState: ka.KEY_DOWN })
-    },
-    arrowLeftUp () {
-      dispatchPressButton({ key: ka.ARROW_LEFT, keyState: ka.KEY_UP })
-    },
-    arrowRightDown () {
-      dispatchPressButton({ key: ka.ARROW_RIGHT, keyState: ka.KEY_DOWN })
-    },
-    arrowRightUp () {
-      dispatchPressButton({ key: ka.ARROW_RIGHT, keyState: ka.KEY_UP })
+    handleTouchEnd (key) {
+      dispatchPressButton({ key, keyState: ka.KEY_UP })
     }
   },
   mounted: function () {

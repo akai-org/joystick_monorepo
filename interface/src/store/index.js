@@ -5,7 +5,7 @@ import { PRESS_BUTTON, SAVE_INTERFACE } from './actions'
 export default createStore({
   state: {
     socket: null,
-    gui: 'arrows-horizontal'
+    gui: 'arrows-vertical'
   },
   mutations: {
     pressButton () {

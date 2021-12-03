@@ -1,10 +1,10 @@
 <template>
   <div>
     <div id="btn-container">
-      <button @touchstart="$emit(arrowLeftDown)" @touchend="$emit(arrowLeftUp)">
+      <button @touchstart="$emit(onTouchstart, keys.ARROW_LEFT)" @touchend="$emit(onTouchend, keys.ARROW_LEFT)">
           <i class="fas fa-arrow-left"></i>
       </button>
-      <button @touchstart="$emit(arrowRightDown)" @touchend="$emit(arrowRightUp)">
+      <button @touchstart="$emit(onTouchstart, keys.ARROW_RIGHT)" @touchend="$emit(onTouchend, keys.ARROW_RIGHT)">
           <i class="fas fa-arrow-right"></i>
       </button>
     </div>
@@ -22,13 +22,15 @@
 <script>
 
 import { events } from '../../InterfacesEvents'
+import { keyActions as keys } from '../../Keys'
 
 export default {
   name: 'BasicLeftRightInterface',
-  emits: [events.arrowLeftDown, events.arrowLeftUp, events.arrowRightDown, events.arrowRightUp],
+  emits: [events.onTouchstart, events.onTouchend],
   data: function () {
     return {
-      ...events
+      ...events,
+      keys
     }
   }
 }
