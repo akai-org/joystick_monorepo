@@ -13,6 +13,9 @@ import { dispatchPressButton } from '../store/actionCreator'
 
 import ArrowsVertical from './controllers/basic-left-right/ArrowsVertical.vue'
 import ArrowsHorizontal from './controllers/basic-top-bottom/ArrowsHorizontal.vue'
+import ArrowsVertical1AB from './controllers/arrows-vertical-1ab/ArrowsVertical1AB.vue'
+import CrossArrows from './controllers/cross-arrows/CrossArrows.vue'
+import CrossArrows1AB from './controllers/cross-arrows-1ab/CrossArrows1AB.vue'
 
 export default {
   name: 'Game',
@@ -23,7 +26,10 @@ export default {
   },
   components: {
     ArrowsVertical,
-    ArrowsHorizontal
+    ArrowsHorizontal,
+    ArrowsVertical1AB,
+    CrossArrows,
+    CrossArrows1AB
   },
   methods: {
     handleTouchStart (key) {
