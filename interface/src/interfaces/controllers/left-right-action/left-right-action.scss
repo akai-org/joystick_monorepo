@@ -1,0 +1,61 @@
+// ===================
+//  CONFIG
+// ===================
+
+$side-button-width: 20vw;
+
+$color-active: #fdfdfd;
+$color-background: #000;
+
+$button-side-arrow-size: 2rem;
+$button-center-arrow-size: 4rem;
+
+$divider-height: 90vh;
+
+
+// ===================
+
+#btn-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.button {
+    height: 100vh;
+    border: none;
+    background-color: $color-background;
+    color: $color-active;
+
+    font-weight: 1000;
+
+    &:active {
+        background-color: $color-active;
+        color: $color-background;
+    }
+}
+
+.button-side {
+    width: $side-button-width;
+    font-size: $button-side-arrow-size;
+}
+
+.button-center {
+    width: 100vw - ($side-button-width * 2);
+    font-size: $button-center-arrow-size;
+}
+
+.divider {
+    position: absolute;
+    background-color: #fff;
+    top: 5vh;
+    width: 1px;
+    height: $divider-height;
+}
+
+.divider-l {
+    left: $side-button-width;
+}
+
+.divider-r {
+    right: $side-button-width;
+}
