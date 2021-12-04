@@ -15,7 +15,10 @@
     </div>
 
     <div id="divider"></div>
-
+    <div class="fullscreen-btn" @click="tryToFullscreen()">
+      <i class="fas fa-expand-arrows-alt"></i>
+      Click to go fullscreen
+    </div>
   </div>
 </template>
 
@@ -23,12 +26,27 @@
 
 import { events } from '../../InterfacesEvents'
 
+// when phone is rotated to this orientation we lock it
+const wantedOrientation = 'landscape'
+
+screen.orientation.addEventListener('change', function (e) {
+  const orientation = e.target.type
+  if (orientation === `${wantedOrientation}-primary` || orientation === `${wantedOrientation}-secondary`) {
+    screen.orientation.lock(orientation)
+  }
+})
+
 export default {
   name: 'BasicLeftRightInterface',
   emits: [events.arrowLeftDown, events.arrowLeftUp, events.arrowRightDown, events.arrowRightUp],
   data: function () {
     return {
       ...events
+    }
+  },
+  methods: {
+    tryToFullscreen () {
+      document.body.requestFullscreen()
     }
   }
 }
