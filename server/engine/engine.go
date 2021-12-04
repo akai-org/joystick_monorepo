@@ -6,9 +6,10 @@ import (
 )
 
 type Engine struct {
-	*game.Manager
+	*game.RoomManager
+	*game.PlayerManager
 }
 
-func NewEngine(rm *game.Manager) Engine {
-	return Engine{rm}
+func NewEngine(rm *game.RoomManager, pm *game.PlayerManager) Engine {
+	return Engine{rm, pm}
 }

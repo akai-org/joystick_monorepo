@@ -2,31 +2,25 @@ package game
 
 import (
 	"errors"
-	"math/rand"
 )
 
-type Manager struct {
+type RoomManager struct {
 	rooms map[string]*room
 }
 
 const (
 	noSuchRoomMessage = "there is no game with such code"
 	roomAlreadyExists = "game with such code already exists"
+	roomCodeLength    = 5
 )
 
-func NewRoomManager() *Manager {
-	return &Manager{}
-}
-
-func (manager *Manager) generateCode() string {
-	random := make([]byte, 5)
-	for i := range random {
-		random[i] = byte(rand.Intn(25) + 66)
+func NewRoomManager() *RoomManager {
+	return &RoomManager{
+		make(map[string]*room),
 	}
-	return string(random)
 }
 
-func (manager *Manager) appendRoomWithCode(room *room, code string) error {
+func (manager *RoomManager) appendRoomWithCode(room *room, code string) error {
 	if _, ok := manager.rooms[code]; ok {
 		return errors.New(roomAlreadyExists)
 	}
@@ -34,19 +28,23 @@ func (manager *Manager) appendRoomWithCode(room *room, code string) error {
 	return nil
 }
 
-func (manager *Manager) CreateNewRoom(gui string, maxPlayers int) (code string, err error) {
+func (manager *RoomManager) CreateNewRoom(gui string, maxPlayers int) (string, error) {
 	room := NewRoom(gui, maxPlayers)
-	code = manager.generateCode()
+	code := generateCode(roomCodeLength)
 
-	err = manager.appendRoomWithCode(room, manager.generateCode())
-	if err != nil {
-		return "", err
+	for {
+		err := manager.appendRoomWithCode(room, code)
+		if err == nil {
+			break
+		}
+		code = generateCode(roomCodeLength)
+		continue
 	}
 
 	return code, nil
 }
 
-func (manager *Manager) GetRoom(code string) (*room, error) {
+func (manager *RoomManager) GetRoom(code string) (*room, error) {
 	if r, ok := manager.rooms[code]; !ok {
 		return nil, errors.New(noSuchRoomMessage)
 	} else {
@@ -54,7 +52,7 @@ func (manager *Manager) GetRoom(code string) (*room, error) {
 	}
 }
 
-func (manager *Manager) RemoveRoom(code string) error {
+func (manager *RoomManager) RemoveRoom(code string) error {
 	if _, ok := manager.rooms[code]; !ok {
 		return errors.New(noSuchRoomMessage)
 	}
