@@ -1,5 +1,6 @@
 <script setup>
 import BasicLeftRight from './controllers/basic-left-right/BasicLeftRight.vue'
+import PingMeter from '../components/PingMeter.vue'
 </script>
 <template>
     <BasicLeftRight
@@ -7,6 +8,7 @@ import BasicLeftRight from './controllers/basic-left-right/BasicLeftRight.vue'
         @arrow-left-up="arrowLeftUp"
         @arrow-right-down="arrowRightDown"
         @arrow-right-up="arrowRightUp" />
+    <PingMeter />
 </template>
 
 <script>
