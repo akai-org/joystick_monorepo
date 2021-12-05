@@ -1,11 +1,12 @@
-<template>
+<template >
   <div>
     <div id="btn-container">
-      <button @touchstart="$emit(arrowLeftDown)" @touchend="$emit(arrowLeftUp)">
-          <i class="fas fa-arrow-left"></i>
+      <button @touchstart="$emit(onTouchstart, keys.ARROW_UP)" @touchend="$emit(onTouchend, keys.ARROW_UP)">
+          <i class="fas fa-arrow-up"></i>
       </button>
-      <button @touchstart="$emit(arrowRightDown)" @touchend="$emit(arrowRightUp)">
-          <i class="fas fa-arrow-right"></i>
+
+      <button @touchstart="$emit(onTouchstart, keys.ARROW_DOWN)" @touchend="$emit(onTouchend, keys.ARROW_DOWN)">
+          <i class="fas fa-arrow-down"></i>
       </button>
     </div>
 
@@ -25,9 +26,10 @@
 <script>
 
 import { events } from '../../InterfacesEvents'
+import { keyActions as keys } from '../../Keys'
 
 // when phone is rotated to this orientation we lock it
-const wantedOrientation = 'landscape'
+const wantedOrientation = 'portrait'
 
 screen.orientation.addEventListener('change', function (e) {
   const orientation = e.target.type
@@ -37,12 +39,10 @@ screen.orientation.addEventListener('change', function (e) {
 })
 
 export default {
-  name: 'BasicLeftRightInterface',
-  emits: [events.arrowLeftDown, events.arrowLeftUp, events.arrowRightDown, events.arrowRightUp],
+  name: 'BasicTopBottomInterface',
+  emits: [events.onTouchstart, events.onTouchend],
   data: function () {
-    return {
-      ...events
-    }
+    return { ...events, keys }
   },
   methods: {
     tryToFullscreen () {
@@ -53,5 +53,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import './basic-left-right.scss'
+  @import './basic-top-bottom.scss'
 </style>

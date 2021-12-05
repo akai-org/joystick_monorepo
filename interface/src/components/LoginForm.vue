@@ -55,6 +55,7 @@
 
 <script>
 import axios from 'axios'
+import { dispatchSaveInterface } from '../store/actionCreator'
 
 export default {
   name: 'LoginForm',
@@ -76,6 +77,8 @@ export default {
         .then((res) => {
           console.log(res.data)
           localStorage.setItem('gui', JSON.stringify(res.data.gui))
+          // FIXME: change 'arrows-horizontal' to dynamic value
+          dispatchSaveInterface('arrows-horizontal')
           localStorage.setItem('address', JSON.stringify(res.data.address))
         })
         .catch((err) => {

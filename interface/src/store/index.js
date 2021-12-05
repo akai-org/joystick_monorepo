@@ -1,10 +1,11 @@
 import { createStore } from 'vuex'
 import { keyCodes, keyStates } from '../utils/keyCodes'
-import { PRESS_BUTTON } from './actions'
+import { PRESS_BUTTON, SAVE_INTERFACE } from './actions'
 
 export default createStore({
   state: {
-    socket: null
+    socket: null,
+    gui: null
   },
   mutations: {
     pressButton () {
@@ -14,6 +15,9 @@ export default createStore({
     },
     websocketConnectionAlreadyEstablished () {
 
+    },
+    saveInterface (state, gui) {
+      state.gui = gui
     }
   },
   actions: {
@@ -35,6 +39,9 @@ export default createStore({
       } else {
         commit('websocketConnectionAlreadyEstablished')
       }
+    },
+    saveInterface ({ commit }, gui) {
+      commit(SAVE_INTERFACE, gui)
     }
   },
   modules: {
