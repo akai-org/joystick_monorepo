@@ -11,7 +11,6 @@ type roomCreateRequest struct {
 }
 
 type roomCreateResponse struct {
-	Address string `json:"address"`
 	Code    string `json:"code"`
 }
 
@@ -52,7 +51,6 @@ func (c *controller) createRoom(w http.ResponseWriter, r *http.Request) {
 		return
 	} else {
 		response := roomCreateResponse{
-			Address: "todo",
 			Code:    code,
 		}
 		jsonResponse(w, response, http.StatusOK)
