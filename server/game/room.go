@@ -4,20 +4,27 @@ import (
 	"errors"
 )
 
-type room struct {
-	Gui     string `json:"gui"`
-	players []*player
+type Room struct {
+	Gui           string `json:"gui"`
+	players       []*Player
+	PlayerChannel chan []byte
+	ServerMessageChannel chan []byte
 }
 
 const (
 	noSpaceLeftInRoom = "this game has reached its max capacity of players"
 )
 
-func NewRoom(gui string, maxPlayers int) *room {
-	return &room{gui, make([]*player, 0, maxPlayers)}
+func NewRoom(gui string, maxPlayers int) *Room {
+	return &Room{
+		gui,
+		make([]*Player, 0, maxPlayers),
+		make(chan[]byte),
+		make(chan []byte),
+	}
 }
 
-func (r *room) AddPlayer(player *player) error {
+func (r *Room) AddPlayer(player *Player) error {
 	if cap(r.players) == len(r.players) {
 		return errors.New(noSpaceLeftInRoom)
 	}

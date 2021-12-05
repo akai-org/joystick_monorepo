@@ -5,21 +5,21 @@ import (
 )
 
 type PlayerManager struct {
-	players map[string]*player
+	players map[string]*Player
 }
 
 const (
 	playerCodeLength          = 32
-	playerAlreadyExistMessage = "player with such code already exists"
+	playerAlreadyExistMessage = "Player with such code already exists"
 )
 
 func NewPlayerManager() *PlayerManager {
 	return &PlayerManager{
-		make(map[string]*player),
+		make(map[string]*Player),
 	}
 }
 
-func (manager *PlayerManager) GetPlayer(id string) (*player, error) {
+func (manager *PlayerManager) GetPlayer(id string) (*Player, error) {
 	if r, ok := manager.players[id]; !ok {
 		return nil, errors.New(noSuchRoomMessage)
 	} else {
@@ -27,7 +27,7 @@ func (manager *PlayerManager) GetPlayer(id string) (*player, error) {
 	}
 }
 
-func (manager *PlayerManager) CreateNewPlayer(nickname string) (*player, string) {
+func (manager *PlayerManager) CreateNewPlayer(nickname string) (*Player, string) {
 	player := NewPlayer(nickname)
 	code := generateCode(playerCodeLength)
 
@@ -43,7 +43,7 @@ func (manager *PlayerManager) CreateNewPlayer(nickname string) (*player, string)
 	return player, code
 }
 
-func (manager *PlayerManager) appendPlayerWithCode(player *player, code string) error {
+func (manager *PlayerManager) appendPlayerWithCode(player *Player, code string) error {
 	if _, ok := manager.players[code]; ok {
 		return errors.New(playerAlreadyExistMessage)
 	}

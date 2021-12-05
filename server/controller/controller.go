@@ -28,6 +28,7 @@ func New() *controller {
 func (c *controller) Listen() {
 	fmt.Println("Began listening...")
 	http.HandleFunc("/player/socket", c.playerSocketHandler)
+	http.HandleFunc("/room/socket", c.roomSocketHandler)
 	http.HandleFunc("/join", c.registerNewPlayer)
 	http.HandleFunc("/create", c.createRoom)
 	log.Fatal(http.ListenAndServe(":8080", nil))

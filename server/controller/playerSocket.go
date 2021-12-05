@@ -49,11 +49,11 @@ func (c *controller) playerSocketHandler(w http.ResponseWriter, r *http.Request)
 			log.Println("Error during message reading:", err)
 			break
 		}
-		log.Printf("%s sent %s", player.Nickname, message)
-		err = conn.WriteMessage(messageType, message)
-		if err != nil {
-			log.Println("Error during message writing:", err)
+		if messageType != websocket.BinaryMessage {
+			log.Println("Message received is not of binary type! Disconnecting")
 			break
 		}
+		player.SendMessageToRoom(message)
+		log.Printf("%s sent %s", player.Nickname, message)
 	}
 }

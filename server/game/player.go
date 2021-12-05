@@ -1,12 +1,16 @@
 package game
 
-type player struct {
+type Player struct {
 	Nickname string
-	Room *room
+	Room *Room
 }
 
-func NewPlayer(nickname string) *player {
-	return &player{
+func (p *Player) SendMessageToRoom(message []byte) {
+	p.Room.PlayerChannel <- message
+}
+
+func NewPlayer(nickname string) *Player {
+	return &Player{
 		Nickname: nickname,
 	}
 }

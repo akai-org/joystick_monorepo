@@ -5,7 +5,7 @@ import (
 )
 
 type RoomManager struct {
-	rooms map[string]*room
+	rooms map[string]*Room
 }
 
 const (
@@ -16,11 +16,11 @@ const (
 
 func NewRoomManager() *RoomManager {
 	return &RoomManager{
-		make(map[string]*room),
+		make(map[string]*Room),
 	}
 }
 
-func (manager *RoomManager) appendRoomWithCode(room *room, code string) error {
+func (manager *RoomManager) appendRoomWithCode(room *Room, code string) error {
 	if _, ok := manager.rooms[code]; ok {
 		return errors.New(roomAlreadyExists)
 	}
@@ -44,7 +44,7 @@ func (manager *RoomManager) CreateNewRoom(gui string, maxPlayers int) (string, e
 	return code, nil
 }
 
-func (manager *RoomManager) GetRoom(code string) (*room, error) {
+func (manager *RoomManager) GetRoom(code string) (*Room, error) {
 	if r, ok := manager.rooms[code]; !ok {
 		return nil, errors.New(noSuchRoomMessage)
 	} else {
