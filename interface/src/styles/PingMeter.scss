@@ -1,0 +1,23 @@
+.ping-meter {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 0.7rem;
+    z-index: 5;
+}
+
+.good {
+    color: #8dec7a;
+}
+
+.okay {
+    color: #dad267;
+}
+
+.bad {
+    color: #e69c56;
+}
+
+.horrible {
+    color: #ff0000;
+}
