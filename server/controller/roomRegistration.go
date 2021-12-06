@@ -19,6 +19,8 @@ const (
 	roomCreatingRequestDataInvalid = "Given room creating data is invalid"
 )
 
+var interfaceNames = []string{"arrows-horizontal", "arrows-vertical", "arrows-vertical-1ab", "cross-arrows", "cross-arrows-1ab"}
+
 func (c *controller) createRoom(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodOptions {
 		response := new(struct{})
@@ -61,5 +63,10 @@ func (c *controller) createRoom(w http.ResponseWriter, r *http.Request) {
 }
 
 func (r *roomCreateRequest) invalid() bool {
-	return r.Gui == "" || r.MaxPlayer <= 0
+	for _, name:= range interfaceNames{
+		if name == r.Gui && (r.MaxPlayer>0 && r.MaxPlayer<=255){
+			return true
+		}
+	}
+	return false
 }
