@@ -22,7 +22,7 @@ func New(logger *logger.Logger) *controller {
 		return true
 	}
 	return &controller{
-		engine:   engine.NewEngine(game.NewRoomManager(), game.NewPlayerManager()),
+		engine:   engine.NewEngine(game.NewRoomManager(logger), game.NewPlayerManager(logger)),
 		upgrader: upgrader,
 		logger:   logger,
 	}

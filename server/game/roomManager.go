@@ -1,11 +1,13 @@
 package game
 
 import (
+	"akai.org.pl/joystick_server/logger"
 	"errors"
 )
 
 type RoomManager struct {
-	rooms map[string]*Room
+	rooms  map[string]*Room
+	logger *logger.Logger
 }
 
 const (
@@ -14,9 +16,10 @@ const (
 	roomCodeLength    = 5
 )
 
-func NewRoomManager() *RoomManager {
+func NewRoomManager(logger *logger.Logger) *RoomManager {
 	return &RoomManager{
 		make(map[string]*Room),
+		logger,
 	}
 }
 

@@ -3,6 +3,7 @@ package controller
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"net/http"
 	"unicode"
 )
@@ -37,6 +38,7 @@ func (c *controller) registerNewPlayer(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		response := errorResponse{Message: methodNotAllowedMessage}
 		jsonResponse(w, response, http.StatusMethodNotAllowed)
+		c.logger.Debug("Client tried to register player using wrong method")
 		return
 	}
 
@@ -45,12 +47,14 @@ func (c *controller) registerNewPlayer(w http.ResponseWriter, r *http.Request) {
 	if err := json.NewDecoder(r.Body).Decode(&payload); err != nil {
 		response := errorResponse{Message: messageIsNotCorrectJson}
 		jsonResponse(w, response, http.StatusBadRequest)
+		c.logger.Debug("Client tried to register player with wrong payload format")
 		return
 	}
 
 	if err := payload.isValid(); err != nil {
 		response := errorResponse{Message: err.Error()}
 		jsonResponse(w, response, http.StatusBadRequest)
+		c.logger.Debug("Client tried to register player provided invalid payload")
 		return
 	}
 
@@ -68,6 +72,8 @@ func (c *controller) registerNewPlayer(w http.ResponseWriter, r *http.Request) {
 		jsonResponse(w, response, http.StatusForbidden)
 		return
 	}
+
+	c.logger.Info(fmt.Sprintf("Player %v has been registered to room %v", payload.Nickname, payload.RoomCode))
 
 	response := playerResponse{
 		GlobalId: code,

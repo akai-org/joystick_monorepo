@@ -8,7 +8,6 @@ type Room struct {
 	Gui           string `json:"gui"`
 	players       []*Player
 	PlayerChannel chan []byte
-	ServerMessageChannel chan []byte
 }
 
 const (
@@ -19,7 +18,6 @@ func NewRoom(gui string, maxPlayers int) *Room {
 	return &Room{
 		gui,
 		make([]*Player, 0, maxPlayers),
-		make(chan[]byte),
 		make(chan []byte),
 	}
 }
