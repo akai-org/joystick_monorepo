@@ -1,14 +1,11 @@
 package controller
 
 import (
-	"akai.org.pl/joystick_server/game"
-	"akai.org.pl/joystick_server/logger"
 	"bytes"
 	"encoding/json"
 	"fmt"
 	"github.com/gorilla/websocket"
 	"net/http"
-	"sync"
 	"time"
 )
 
@@ -56,20 +53,29 @@ func (c *controller) roomSocketHandler(w http.ResponseWriter, r *http.Request) {
 
 	c.logger.Debug(fmt.Sprintf("Listening for player input on channel %v", room.PlayerChannel))
 	connectionClose := make(chan interface{})
-	wg := sync.WaitGroup{}
-	wg.Add(2)
-	go communicateWithHost(room, conn, c.logger, connectionClose, &wg)
-	go ping(connectionClose, conn, &wg, c.logger)
-	wg.Wait()
+	go ping(connectionClose, conn)
+	messageType = websocket.BinaryMessage
+	for {
+		select {
+		case playerInput := <-room.PlayerChannel:
+			c.logger.Debug(fmt.Sprintf("From player %d received %d\n", playerInput[0], playerInput[1]))
+
+			err := conn.WriteMessage(messageType, playerInput)
+			if err != nil {
+				c.logger.Warning(fmt.Sprintf("Error during message writing: %v", err))
+			}
+		case <-connectionClose:
+			return
+		}
+	}
 }
 
-func ping(connectionClose chan interface{}, conn *websocket.Conn, wg *sync.WaitGroup, logger *logger.Logger) {
+func ping(connectionClose chan interface{}, conn *websocket.Conn) {
 	tickerTime := time.Second
 	ticker := time.NewTicker(tickerTime)
 	defer func() {
 		ticker.Stop()
 		connectionClose <- true
-		wg.Done()
 	}()
 	for {
 		select {
@@ -77,24 +83,6 @@ func ping(connectionClose chan interface{}, conn *websocket.Conn, wg *sync.WaitG
 			if err := conn.WriteMessage(websocket.PingMessage, nil); err != nil {
 				return
 			}
-		}
-	}
-}
-
-func communicateWithHost(room *game.Room, conn *websocket.Conn, logger *logger.Logger, gameHostClosedConnection <-chan interface{}, wg *sync.WaitGroup) {
-	defer wg.Done()
-	messageType := websocket.BinaryMessage
-	for {
-		select {
-		case playerInput := <-room.PlayerChannel:
-			logger.Debug(fmt.Sprintf("From player %d received %d\n", playerInput[0], playerInput[1]))
-
-			err := conn.WriteMessage(messageType, playerInput)
-			if err != nil {
-				logger.Warning(fmt.Sprintf("Error during message writing: %v", err))
-			}
-		case <-gameHostClosedConnection:
-			return
 		}
 	}
 }

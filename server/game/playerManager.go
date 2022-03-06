@@ -55,3 +55,11 @@ func (manager *PlayerManager) appendPlayerWithCode(player *Player, code string) 
 	manager.players[code] = player
 	return nil
 }
+
+func (manager *PlayerManager) RemovePlayer(id string) error {
+	if _, ok := manager.players[id]; !ok {
+		return errors.New("there is no player with such id")
+	}
+	delete(manager.players, id)
+	return nil
+}
