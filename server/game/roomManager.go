@@ -1,11 +1,13 @@
 package game
 
 import (
+	"akai.org.pl/joystick_server/logger"
 	"errors"
 )
 
 type RoomManager struct {
-	rooms map[string]*room
+	rooms  map[string]*Room
+	logger *logger.Logger
 }
 
 const (
@@ -14,13 +16,14 @@ const (
 	roomCodeLength    = 5
 )
 
-func NewRoomManager() *RoomManager {
+func NewRoomManager(logger *logger.Logger) *RoomManager {
 	return &RoomManager{
-		make(map[string]*room),
+		make(map[string]*Room),
+		logger,
 	}
 }
 
-func (manager *RoomManager) appendRoomWithCode(room *room, code string) error {
+func (manager *RoomManager) appendRoomWithCode(room *Room, code string) error {
 	if _, ok := manager.rooms[code]; ok {
 		return errors.New(roomAlreadyExists)
 	}
@@ -29,7 +32,7 @@ func (manager *RoomManager) appendRoomWithCode(room *room, code string) error {
 }
 
 func (manager *RoomManager) CreateNewRoom(gui string, maxPlayers int) (string, error) {
-	room := NewRoom(gui, maxPlayers)
+	room := NewRoom(gui, maxPlayers, manager.logger)
 	code := generateCode(roomCodeLength)
 
 	for {
@@ -44,7 +47,7 @@ func (manager *RoomManager) CreateNewRoom(gui string, maxPlayers int) (string, e
 	return code, nil
 }
 
-func (manager *RoomManager) GetRoom(code string) (*room, error) {
+func (manager *RoomManager) GetRoom(code string) (*Room, error) {
 	if r, ok := manager.rooms[code]; !ok {
 		return nil, errors.New(noSuchRoomMessage)
 	} else {

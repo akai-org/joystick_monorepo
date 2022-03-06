@@ -45,7 +45,6 @@ a. odpowiedź w przypadku pomyślnego utworzenia pokoju:
 kod 200 ok
 {
     "room_code": "kod pokoju",
-    "global_id": "someglobalid"
 }
 ```
 
@@ -63,12 +62,14 @@ kod 400 user error
 podłączenie się do ws, wysłanie wiadomości autoryzacyjnej:
 ```
 WS: /game/socket
-{"global_id": "someglobalid"}
+{"room_code": "code"}
 ```
 wiadomość musi być typu tekstowego, musi być jsonem i
-zawierać taką treść, w miejscu someglobalid powinien być przesłany
-global_id uzyskany podczas rejestracji gry. Jeżeli wiadomość będzie inna
+zawierać taką treść, w miejscu code powinien być przesłany
+kod uzyskany podczas rejestracji gry. Jeżeli wiadomość będzie inna
 lub niepoprawna to serwer zamknie połączenie ws i trzeba próbować jeszcze raz.
+Jeżeli gra o danym kodzie jest już poąłczona to serwer zamknie połączenie ws
+dla klienta, który próbuje się połączyć jako drugi.
 
 2) **Serwer** - jeżeli wiadomość jest poprawna to utrzymuje połączenie.
 Kolejne wiadomości są wysyłane przez serwer:
