@@ -90,4 +90,4 @@ export default {
 }
 </script>
 
-<style lang="scss" src="../interfaces/login/login.scss"></style>
+<style lang="scss" src="../app.scss"></style>
