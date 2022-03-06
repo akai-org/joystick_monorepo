@@ -1,0 +1,137 @@
+// =========================
+//  config
+// =========================
+
+$color-active: #fdfdfd;
+$color-background: #000;
+$color-transparentbg: #000000d0;
+
+$button-relative-size: 75%;
+$button-arrow-size: 5rem;
+
+$rotate-warning-rotation-speed: 1.5s;
+$warning-size: 2rem;
+
+$divider-width: 90%;
+
+// =========================
+
+:root {
+    background-color: $color-background;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+
+    .col {
+        display: flex;
+        flex-direction: column;
+
+        button {
+            border: none;
+    
+            width: 50vw;
+            height: 50vh;
+    
+            background-color: $color-background;
+            color: $color-active;
+            font-size: $button-arrow-size;
+            font-weight: 1000;
+    
+            display: flex;
+            justify-content: center;
+            align-items: center;
+    
+            &:active {
+                background-color: $color-active;
+                color: $color-background;
+            }
+        }
+    }   
+}
+
+#rotate-warning {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 1;
+
+    background-color: $color-background;
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    h1 {
+        font-size: $warning-size;
+        padding-top: 2rem;
+    }
+
+    i {
+        font-size: $warning-size;
+    }
+}
+
+#divider {
+    position: absolute;
+    width: $divider-width;
+    height: 1px;
+    top: 50%;
+    left: calc((100% - $divider-width) / 2);
+
+    // transform: rotate(90deg);
+
+    background-color: $color-active;
+
+    justify-self: center;
+}
+
+@media (orientation: portrait) {
+    #rotate-warning {
+        visibility: visible;
+    }
+    i {
+        animation: rotation $rotate-warning-rotation-speed infinite linear;
+    }
+}
+
+@media (orientation: landscape) {
+    #rotate-warning {
+        visibility: hidden;
+    }
+}
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    } to {
+        transform: rotate(359deg);
+    }
+}
+
+.fullscreen-btn {
+    color: #fff;
+    background-color: #000000a0;
+    font-size: 3rem;
+    
+    width: 100vw;
+    height: 100vh;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+:fullscreen .fullscreen-btn {
+    visibility: hidden !important;
+}
