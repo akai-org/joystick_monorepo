@@ -34,7 +34,7 @@ export default createStore({
     // This action doesn't show up in devtools because it's called before devtools attach to the app
     initWebsocketConnection ({ commit, state }) {
       if (!state.socket) {
-        const socket = new WebSocket('ws://127.0.0.1:8081/socket')
+        const socket = new WebSocket('ws://127.0.0.1:8081/player/socket')
         commit('initWebsocketConnectionSuccess', socket)
       } else {
         commit('websocketConnectionAlreadyEstablished')

@@ -40,6 +40,7 @@ export default {
     }
   },
   mounted: function () {
+    console.log(this.$store.state.gui)
     this.$store.dispatch('initWebsocketConnection')
   }
 }

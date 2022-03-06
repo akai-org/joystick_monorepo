@@ -71,15 +71,14 @@ export default {
 
       axios
         .post('http://localhost:8081/join', {
-          nickmane: this.nickname,
+          nickname: this.nickname,
           room_code: this.room_code
         })
         .then((res) => {
-          console.log(res.data)
           localStorage.setItem('gui', JSON.stringify(res.data.gui))
-          // FIXME: change 'arrows-horizontal' to dynamic value
-          dispatchSaveInterface('arrows-horizontal')
-          localStorage.setItem('address', JSON.stringify(res.data.address))
+          dispatchSaveInterface(res.data.gui)
+          localStorage.setItem('global_id', JSON.stringify(res.data.global_id))
+          window.location.href = '/game'
         })
         .catch((err) => {
           console.error(err.response.data.message)
