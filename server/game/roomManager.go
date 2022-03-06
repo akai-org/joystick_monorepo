@@ -32,7 +32,7 @@ func (manager *RoomManager) appendRoomWithCode(room *Room, code string) error {
 }
 
 func (manager *RoomManager) CreateNewRoom(gui string, maxPlayers int) (string, error) {
-	room := NewRoom(gui, maxPlayers)
+	room := NewRoom(gui, maxPlayers, manager.logger)
 	code := generateCode(roomCodeLength)
 
 	for {

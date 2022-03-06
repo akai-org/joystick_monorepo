@@ -20,6 +20,7 @@ func (c *controller) roomSocketHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	defer conn.Close()
+
 	c.logger.Debug("Successfuly established websocket connection with room")
 	var payload initialWsRoomMessage
 	messageType, message, err := conn.ReadMessage()
@@ -46,13 +47,14 @@ func (c *controller) roomSocketHandler(w http.ResponseWriter, r *http.Request) {
 	c.logger.Info(fmt.Sprintf("Game host connected: %s", payload.Code))
 
 	c.logger.Debug(fmt.Sprintf("Listening for player input on channel %v", room.PlayerChannel))
-	playerInput := <-room.PlayerChannel
-	c.logger.Debug(fmt.Sprintf("From player %d received %d\n", playerInput[0], playerInput[1]))
-	messageType = websocket.BinaryMessage
+	for {
+		playerInput := <-room.PlayerChannel
+		c.logger.Debug(fmt.Sprintf("From player %d received %d\n", playerInput[0], playerInput[1]))
 
-	err = conn.WriteMessage(messageType, playerInput)
-	if err != nil {
-		c.logger.Warning(fmt.Sprintf("Error during message writing: %v", err))
+		messageType = websocket.BinaryMessage
+		err = conn.WriteMessage(messageType, playerInput)
+		if err != nil {
+			c.logger.Warning(fmt.Sprintf("Error during message writing: %v", err))
+		}
 	}
-	c.logger.Info(fmt.Sprintf("Connection to game host %v broken", payload.Code))
 }
