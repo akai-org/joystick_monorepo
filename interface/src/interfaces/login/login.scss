@@ -2,8 +2,12 @@
 //  CONFIG
 // ===================
 
+$tablet-breakpoint: 500px;
+
 // background
-$color-background: #2194f3;
+$primary: #2194f3;
+$primary-dark: #0067c0;
+$primary-light: #6ec3ff;
 
 $background-offset-x: -52px;
 $background-offset-y: -30px;
@@ -13,12 +17,14 @@ $background-icon-opacity: 0.07;
 
 // logo
 $logo-margin-top: 3rem;
-$logo-color: white;
+$logo-color: $primary;
 $logo-size: 2.5rem;
 
 // login form
 $form-background-color: aliceblue;
-$form-width: 0.8;
+$form-width-multiplier: 0.8;
+$form-width: min($form-width-multiplier * 100vw, $form-width-multiplier * $tablet-breakpoint);
+$form-element-width: calc($form-width - 64px);
 
 // label
 $label-text-color: #00000090;
@@ -30,10 +36,11 @@ $input-height: 3rem;
 $input-background-color: #dce3e9;
 
 // button
-$button-text-color: #000000c0;
+$button-text-color: #fff;
 $button-press-duration: 2s;
 $button-font-size: 2rem;
 $button-height: 4rem;
+$button-width: min($form-width * 100vw, $form-width * $tablet-breakpoint);
 
 // form element
 $form-element-margin-top: 1rem;
@@ -44,14 +51,20 @@ $box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 40px 0 rgba(0, 0, 0, 0.2);
 
 // =================
 
-// SCREENS
-$tablet-breakpoint: 600px;
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@200;300;400;500;600;700&display=swap');
 
-:root {
-    background-color: $color-background;
+// Background
+#solid-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: $primary;
+    z-index: -2;
 }
 
-#background {
+#image-bg {
     position: absolute;
     top: 0;
     left: 0;
@@ -65,52 +78,125 @@ $tablet-breakpoint: 600px;
     transform: translateX($background-offset-x) translateY($background-offset-y);
 }
 
+// Form
+
 #form-container {
-    width: 100vw;
-    height: 100%;
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: center;
 }
 
 form {
-    width: min($form-width * 100vw, $form-width * $tablet-breakpoint);
-    height: auto;
-    justify-self: center;
-    // margin-top: 4rem;
-    
-}
-
-
-.form-element {
     display: flex;
     flex-direction: column;
-    margin-top: $form-element-margin-top;
-    margin-bottom: $form-element-margin-bottom;
+    width: $form-width;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+    background-color: $form-background-color;
+    border-radius: 16px;
+    box-shadow: $box-shadow;
 
-    label {
-        margin-bottom: $label-margin-bottom;
-        color: $label-text-color;
-        font-weight: 700;
+    margin-top: 5rem;
+    padding-bottom: 2.4rem;
+
+    #logo {
+        margin-top: $logo-margin-top;
+        margin-bottom: 1rem;
+        color: $logo-color;
+        font-size: $logo-size;
+    
+        display: flex;
+        flex-direction: column;
+
+        
+        font-weight: 500;
+        line-height: 30px;
+
+        #logo-container {
+            position: inherit;
+            display: flex;
+            flex-direction: column;
+            #logo-rook {
+                font-size: 3rem;
+                margin-right: 2.4rem;
+                color: $primary-dark;
+            }
+    
+            #logo-gamepad {
+                transform: rotate(-15deg) translate(3.4rem, 1rem);
+                position: fixed;
+                font-size: 3rem;
+            }
+        }
+
+
     }
 
-    input {
-        height: $input-height;
-        font-size: $input-font-size;
+    button {
+        display: flex;
+        justify-content: center;
+        margin-top: 2rem;
+        
+        border: none;
+        background-color: $form-background-color;
+        font-size: $button-font-size;
+        color: $button-text-color;
         font-weight: 700;
         text-align: center;
-        border: none;
-        background-color: $input-background-color;
-    }
-}
+        box-shadow: $box-shadow;
+        border-radius: 16px;
+        font-family: 'Lexend Deca', sans-serif;
+    
+        &:active {
+            animation: button-press $button-press-duration linear;
+        }
 
-.form-background {
-    width: 100%;
-    height: 100%;
-    background-color: $form-background-color;
-    border-radius: 15px;
-    box-shadow: $box-shadow
+        #connect-btn-1 {
+            height: $button-height;
+            // width: min($form-width * 100vw - 18px, $form-width * $tablet-breakpoint - 18px);
+            width: calc($form-element-width - 8px);
+            margin-top: 4px;
+            position: fixed;
+            z-index: 2;
+            background-color: $primary;
+            border-radius: 16px;
+            line-height: 56px;
+        }
+        
+        #connect-btn-2 {
+            width: $form-element-width;
+            position: relative;
+            z-index: 1;
+            height: calc($button-height + 24px);
+            background-color: $primary-dark;
+    
+            border-radius: 18px;
+        }
+    }
+
+    .form-element {
+        padding-top: 2rem;
+        display: flex;
+        flex-direction: column;
+
+        width: $form-element-width;
+
+        label {
+            margin-bottom: $label-margin-bottom;
+            color: $label-text-color;
+            font-weight: 700;
+        }
+
+        input {
+            height: $input-height;
+            font-size: $input-font-size;
+            font-weight: 700;
+            text-align: center;
+            border: none;
+            background-color: $input-background-color;
+            border-radius: 16px;
+        }
+    }
 }
 
 @keyframes button-press {
@@ -128,50 +214,4 @@ form {
     } to {
         transform: rotate(359deg);
     }
-}
-
-button {
-    width: min($form-width * 100vw, $form-width * $tablet-breakpoint);
-    height: $button-height;
-
-    position: relative;
-
-    border: none;
-    border-radius: 15px;
-
-    background-color: $form-background-color;
-    font-size: $button-font-size;
-    color: $button-text-color;
-    font-weight: 700;
-    text-align: center;
-    box-shadow: $box-shadow;
-
-    &:active {
-        animation: button-press $button-press-duration linear;
-    }
-}
-
-#logo {
-    margin-top: $logo-margin-top;
-    color: $logo-color;
-    font-size: $logo-size;
-
-    display: flex;
-    flex-direction: column;
-}
-
-.spacer-05 {
-    height: .5rem;
-}
-.spacer-1 {
-    height: 1rem;
-}
-.spacer-2 {
-    height: 2rem;
-}
-.spacer-3 {
-    height: 3rem;
-}
-.spacer-4 {
-    height: 4rem;
 }
