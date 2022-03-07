@@ -2,12 +2,11 @@
         <component
         @on-touchstart="handleTouchStart"
         @on-touchend="handleTouchEnd"
-        :is="this.components.get(this.$store.state.gui)" ></component>
+        :is="this.$store.state.gui" ></component>
 </template>
 
 <script>
 
-import { Components } from './components'
 import { keyActions as ka } from './Keys'
 import { dispatchPressButton } from '../store/actionCreator'
 
@@ -20,11 +19,6 @@ import Joystick from './controllers/joystick/Joystick.vue'
 
 export default {
   name: 'Game',
-  data: function () {
-    return {
-      components: Components
-    }
-  },
   components: {
     ArrowsVertical,
     ArrowsHorizontal,
@@ -42,7 +36,9 @@ export default {
     }
   },
   mounted: function () {
-    console.log(this.$store.state.gui)
+    if (!this.$store.state.gui) {
+      this.$router.push('/')
+    }
     this.$store.dispatch('initWebsocketConnection')
   }
 }

@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import { keyCodes, keyStates } from '../utils/keyCodes'
+import { onOpenHandler } from '../utils/socketHelpers'
 import { PRESS_BUTTON, SAVE_INTERFACE } from './actions'
 
 export default createStore({
@@ -12,6 +13,7 @@ export default createStore({
     },
     initWebsocketConnectionSuccess (state, socket) {
       state.socket = socket
+      socket.addEventListener('open', onOpenHandler)
     },
     websocketConnectionAlreadyEstablished () {
 

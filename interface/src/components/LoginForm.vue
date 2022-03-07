@@ -77,8 +77,9 @@ export default {
         .then((res) => {
           localStorage.setItem('gui', JSON.stringify(res.data.gui))
           dispatchSaveInterface(res.data.gui)
+          console.log(res.data.gui)
           localStorage.setItem('global_id', JSON.stringify(res.data.global_id))
-          window.location.href = '/game'
+          this.$router.push('/game')
         })
         .catch((err) => {
           console.error(err.response.data.message)
