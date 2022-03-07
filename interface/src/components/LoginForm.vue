@@ -70,7 +70,7 @@ export default {
       console.log(this.nickname, this.room_code)
 
       axios
-        .post('http://localhost:8081/join', {
+        .post('http://192.168.1.104:8081/join', {
           nickname: this.nickname,
           room_code: this.room_code
         })
