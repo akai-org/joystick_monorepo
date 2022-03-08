@@ -27,9 +27,10 @@ export default createStore({
       const keyCode = keyCodes.get(key)
       const kState = keyStates.get(keyState)
 
-      const message = (keyCode | kState).toString(2)
-
-      state.socket.send(message)
+      const message = (keyCode | kState)
+      const payload = new Uint8Array(1)
+      payload[0] = message
+      state.socket.send(payload.buffer)
 
       commit(PRESS_BUTTON)
     },
