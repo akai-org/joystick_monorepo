@@ -68,9 +68,8 @@ export default {
   methods: {
     onSubmit: function () {
       console.log(this.nickname, this.room_code)
-
       axios
-        .post('http://localhost:8081/join', {
+        .post(`${process.env.VUE_APP_SERVER_ADDRESS}/join`, {
           nickname: this.nickname,
           room_code: this.room_code
         })
