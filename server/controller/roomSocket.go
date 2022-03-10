@@ -54,15 +54,21 @@ func (c *controller) roomSocketHandler(w http.ResponseWriter, r *http.Request) {
 	c.logger.Debug(fmt.Sprintf("Listening for player input on channel %v", room.PlayerChannel))
 	connectionClose := make(chan interface{})
 	go ping(connectionClose, conn)
-	messageType = websocket.BinaryMessage
 	for {
 		select {
 		case playerInput := <-room.PlayerChannel:
 			c.logger.Debug(fmt.Sprintf("From player %d received %d\n", playerInput[0], playerInput[1]))
-
+			messageType = websocket.BinaryMessage
 			err := conn.WriteMessage(messageType, playerInput)
 			if err != nil {
 				c.logger.Warning(fmt.Sprintf("Error during message writing: %v", err))
+			}
+		case serverNotification := <-room.CommunicationChannel:
+			c.logger.Debug(fmt.Sprintf("Sending system communication to game host: %v", serverNotification))
+			err := conn.WriteMessage(messageType, []byte(serverNotification))
+			messageType = websocket.TextMessage
+			if err != nil {
+				c.logger.Warning(fmt.Sprintf("Error during notification sending: %v", err))
 			}
 		case <-connectionClose:
 			return

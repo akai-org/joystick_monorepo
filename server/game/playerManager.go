@@ -2,6 +2,7 @@ package game
 
 import (
 	"akai.org.pl/joystick_server/logger"
+	"encoding/json"
 	"errors"
 	"fmt"
 )
@@ -57,9 +58,21 @@ func (manager *PlayerManager) appendPlayerWithCode(player *Player, code string) 
 }
 
 func (manager *PlayerManager) RemovePlayer(id string) error {
-	if _, ok := manager.players[id]; !ok {
+	player, ok := manager.players[id]
+	if !ok {
 		return errors.New("there is no player with such id")
 	}
-	delete(manager.players, id)
+	defer delete(manager.players, id)
+	messagePayload := &playerMessage{
+		playerRemovedEvent,
+		player.Nickname,
+		player.roomPlayerId,
+	}
+	message, err := json.Marshal(messagePayload)
+	if err != nil {
+		manager.logger.Debug("Failed to compose message while removing player")
+		return err
+	}
+	player.Room.CommunicationChannel <- string(message)
 	return nil
 }
