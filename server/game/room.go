@@ -13,6 +13,7 @@ type Room struct {
 	PlayerChannel        chan []byte
 	logger               *logger.Logger
 	CommunicationChannel chan string
+	occupiedIds          map[uint8]bool
 }
 
 const (
@@ -34,6 +35,7 @@ func NewRoom(gui string, maxPlayers int, logger *logger.Logger) *Room {
 		make(chan []byte),
 		logger,
 		make(chan string),
+		make(map[uint8]bool),
 	}
 }
 
@@ -43,7 +45,13 @@ func (r *Room) AddPlayer(player *Player) error {
 	}
 	player.Room = r
 	r.players = append(r.players, player)
-	player.roomPlayerId = uint8(len(r.players))
+	for i := uint8(0); i < ^uint8(0); i++ {
+		if _, ok := r.occupiedIds[i]; !ok {
+			r.occupiedIds[i] = true
+			player.roomPlayerId = i
+			break
+		}
+	}
 
 	messagePayload := &playerMessage{
 		playerAddedEvent,

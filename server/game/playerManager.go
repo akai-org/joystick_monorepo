@@ -62,7 +62,10 @@ func (manager *PlayerManager) RemovePlayer(id string) error {
 	if !ok {
 		return errors.New("there is no player with such id")
 	}
-	defer delete(manager.players, id)
+	defer func() {
+		delete(manager.players, id)
+		delete(player.Room.occupiedIds, player.roomPlayerId)
+	}()
 	messagePayload := &playerMessage{
 		playerRemovedEvent,
 		player.Nickname,
