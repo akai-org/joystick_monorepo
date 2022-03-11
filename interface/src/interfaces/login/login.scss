@@ -46,36 +46,46 @@ $button-width: min($form-width * 100vw, $form-width * $tablet-breakpoint);
 $form-element-margin-top: 1rem;
 $form-element-margin-bottom: 0.5rem;
 
-// shadow for form-background and button
-$box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 40px 0 rgba(0, 0, 0, 0.2);
-
 // =================
 
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@200;300;400;500;600;700&display=swap');
 
 // Background
+
 #solid-bg {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 120vw;
+    height: 120vh;
     background-color: $primary;
     z-index: -2;
 }
 
 #image-bg {
-    position: absolute;
+    position: fixed;
+
     top: 0;
     left: 0;
-    width: calc(100vw - $background-offset-x);
-    height: calc(100vh - $background-offset-y);
+    width: calc(100vw + 320px);
+    height: calc(100vh + 320px);
     z-index: -1;
     background: url("~@/assets/gamepad.png");
     background-repeat: repeat;
     background-size: $background-icon-size;
     opacity: $background-icon-opacity;
     transform: translateX($background-offset-x) translateY($background-offset-y);
+
+    animation: slide-bg 10s linear infinite;
+}
+
+@keyframes slide-bg {
+    0% {
+        transform: translate(0px, 0px);
+    }
+    100% {
+        transform: translate(-320px, -320px);
+    }
 }
 
 // Form
@@ -94,7 +104,7 @@ form {
     align-items: center;
     background-color: $form-background-color;
     border-radius: 16px;
-    box-shadow: $box-shadow;
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
 
     margin-top: 5rem;
     padding-bottom: 2.4rem;
@@ -115,16 +125,16 @@ form {
         #logo-container {
             position: inherit;
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            justify-content: center;
             #logo-rook {
                 font-size: 3rem;
-                margin-right: 2.4rem;
                 color: $primary-dark;
+                margin-left: 1rem;
             }
     
             #logo-gamepad {
-                transform: rotate(-15deg) translate(3.4rem, 1rem);
-                position: fixed;
+                transform: rotate(-15deg) translate(-1rem);
                 font-size: 3rem;
             }
         }
@@ -133,45 +143,51 @@ form {
     }
 
     button {
+        position: relative;
         display: flex;
         justify-content: center;
         margin-top: 2rem;
         
-        border: none;
-        background-color: $form-background-color;
+
+        background-color: $primary;
         font-size: $button-font-size;
         color: $button-text-color;
         font-weight: 700;
         text-align: center;
-        box-shadow: $box-shadow;
-        border-radius: 16px;
         font-family: 'Lexend Deca', sans-serif;
     
+        border: none;
+        border-radius: 8px;
+
+        padding: 4px 20px 0;
+        box-shadow: 0px 16px 0px 0px $primary-dark;
+
         &:active {
-            animation: button-press $button-press-duration linear;
+            // animation: button-press $button-press-duration linear;
+            top: 6px;
+            box-shadow: 0px 10px 0px 0px $primary-dark;
         }
 
-        #connect-btn-1 {
-            height: $button-height;
-            // width: min($form-width * 100vw - 18px, $form-width * $tablet-breakpoint - 18px);
-            width: calc($form-element-width - 8px);
-            margin-top: 4px;
-            position: fixed;
-            z-index: 2;
-            background-color: $primary;
-            border-radius: 16px;
-            line-height: 56px;
-        }
+        // #connect-btn-1 {
+        //     height: $button-height;
+        //     // width: min($form-width * 100vw - 18px, $form-width * $tablet-breakpoint - 18px);
+        //     width: calc($form-element-width - 8px);
+        //     margin-top: 4px;
+        //     z-index: 2;
+        //     background-color: $primary;
+        //     border-radius: 16px;
+        //     line-height: 56px;
+        // }
         
-        #connect-btn-2 {
-            width: $form-element-width;
-            position: relative;
-            z-index: 1;
-            height: calc($button-height + 24px);
-            background-color: $primary-dark;
+        // #connect-btn-2 {
+        //     width: $form-element-width;
+        //     position: relative;
+        //     z-index: 1;
+        //     height: calc($button-height + 24px);
+        //     background-color: $primary-dark;
     
-            border-radius: 18px;
-        }
+        //     border-radius: 18px;
+        // }
     }
 
     .form-element {

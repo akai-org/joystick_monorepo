@@ -1,7 +1,9 @@
 <template>
 
-<div id="solid-bg"></div>
-<div id="image-bg"></div>
+<div id="bg-container">
+  <div id="solid-bg"></div>
+  <div id="image-bg"></div>
+</div>
 
 <div id="form-container">
 <form @submit.prevent="onSubmit" method="post">
@@ -39,8 +41,7 @@
   </div>
 
   <button id="connect-btn" type="submit" name="button">
-    <div id="connect-btn-1">CONNECT</div>
-    <div id="connect-btn-2"></div>
+    CONNECT
   </button>
 </form>
 </div>
