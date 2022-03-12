@@ -38,13 +38,9 @@ $input-background-color: #dce3e9;
 // button
 $button-text-color: #fff;
 $button-press-duration: 2s;
-$button-font-size: 2rem;
+$button-font-size: 1.8rem;
 $button-height: 4rem;
 $button-width: min($form-width * 100vw, $form-width * $tablet-breakpoint);
-
-// form element
-$form-element-margin-top: 1rem;
-$form-element-margin-bottom: 0.5rem;
 
 // =================
 
@@ -76,7 +72,7 @@ $form-element-margin-bottom: 0.5rem;
     opacity: $background-icon-opacity;
     transform: translateX($background-offset-x) translateY($background-offset-y);
 
-    animation: slide-bg 10s linear infinite;
+    animation: slide-bg 20s linear infinite;
 }
 
 @keyframes slide-bg {
@@ -103,10 +99,11 @@ form {
     justify-content: center;
     align-items: center;
     background-color: $form-background-color;
-    border-radius: 16px;
-    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+    border-radius: 8px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
 
     margin-top: 5rem;
+    margin-bottom: 200px;
     padding-bottom: 2.4rem;
 
     #logo {
@@ -118,7 +115,6 @@ form {
         display: flex;
         flex-direction: column;
 
-        
         font-weight: 500;
         line-height: 30px;
 
@@ -138,8 +134,6 @@ form {
                 font-size: 3rem;
             }
         }
-
-
     }
 
     button {
@@ -159,35 +153,17 @@ form {
         border: none;
         border-radius: 8px;
 
-        padding: 4px 20px 0;
+        width: $form-element-width;
+        padding-top: 8px;
+        padding-bottom: 8px;
+
         box-shadow: 0px 16px 0px 0px $primary-dark;
 
         &:active {
-            // animation: button-press $button-press-duration linear;
             top: 6px;
             box-shadow: 0px 10px 0px 0px $primary-dark;
         }
 
-        // #connect-btn-1 {
-        //     height: $button-height;
-        //     // width: min($form-width * 100vw - 18px, $form-width * $tablet-breakpoint - 18px);
-        //     width: calc($form-element-width - 8px);
-        //     margin-top: 4px;
-        //     z-index: 2;
-        //     background-color: $primary;
-        //     border-radius: 16px;
-        //     line-height: 56px;
-        // }
-        
-        // #connect-btn-2 {
-        //     width: $form-element-width;
-        //     position: relative;
-        //     z-index: 1;
-        //     height: calc($button-height + 24px);
-        //     background-color: $primary-dark;
-    
-        //     border-radius: 18px;
-        // }
     }
 
     .form-element {
@@ -210,19 +186,10 @@ form {
             text-align: center;
             border: none;
             background-color: $input-background-color;
-            border-radius: 16px;
+            border-radius: 8px;
         }
     }
 }
-
-@keyframes button-press {
-    from {
-        background-color: $input-background-color;
-    } to {
-        background-color: $form-background-color;
-    }
-}
-
 
 @keyframes rotation {
     from {
