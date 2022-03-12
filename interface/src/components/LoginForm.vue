@@ -25,6 +25,7 @@
         required
         maxlength="10"
         autocomplete="off"
+        @input="this.room_code = this.room_code.toUpperCase()"
       />
   </div>
 
