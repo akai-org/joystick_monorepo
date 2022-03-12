@@ -58,14 +58,14 @@ func (c *controller) registerNewPlayer(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	player, code := c.engine.CreateNewPlayer(payload.Nickname)
-
 	gameRoom, err := c.engine.GetRoom(payload.RoomCode)
 	if err != nil {
 		response := errorResponse{Message: err.Error()}
 		jsonResponse(w, response, http.StatusForbidden)
 		return
 	}
+
+	player, code := c.engine.CreateNewPlayer(payload.Nickname)
 
 	if err := gameRoom.AddPlayer(player); err != nil {
 		response := errorResponse{Message: err.Error()}
