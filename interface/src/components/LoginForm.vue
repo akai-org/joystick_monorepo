@@ -1,56 +1,52 @@
 <template>
-<div>
-<div id="background"></div>
 
-<div id="logo">
-  <i id="logo-gamepad" class="fas fa-gamepad"></i>
-  joystick
+<div id="bg-container">
+  <div id="solid-bg"></div>
+  <div id="image-bg"></div>
 </div>
-
-<div class="spacer-4"></div>
 
 <div id="form-container">
-  <form @submit.prevent="onSubmit" method="post">
-    <div class="form-background">
-      <div class="spacer-05"></div>
-
-      <div class="form-element">
-        <label>ROOM CODE</label>
-        <input
-          type="text"
-          name="room_code"
-          placeholder="CODE"
-          v-model="room_code"
-          required
-          maxlength="10"
-          autocomplete="off"
-        />
-      </div>
-
-      <div class="form-element">
-        <label>NICKNAME</label>
-        <input
-          type="text"
-          name="nickname"
-          placeholder="NAME"
-          v-model="nickname"
-          required
-          maxlength="10"
-        />
-      </div>
-
-      <div class="spacer-1"></div>
+<form @submit.prevent="onSubmit" method="post">
+  <div id="logo">
+    <div id="logo-container">
+      <i id="logo-rook" class="fa-solid fa-chess-rook"></i>
+      <i id="logo-gamepad" class="fas fa-gamepad"></i>
     </div>
+    joystick
+  </div>
 
-    <div class="spacer-1"></div>
+  <div class="form-element">
+    <label>ROOM CODE</label>
+      <input
+        type="text"
+        name="room_code"
+        placeholder="CODE"
+        v-model="room_code"
+        required
+        maxlength="10"
+        autocomplete="off"
+        @input="this.room_code = this.room_code.toUpperCase()"
+      />
+  </div>
 
-    <button type="submit" name="button">CONNECT</button>
-  </form>
+  <div class="form-element">
+    <label>NICKNAME</label>
+    <input
+      type="text"
+      name="nickname"
+      placeholder="NAME"
+      v-model="nickname"
+      required
+      maxlength="10"
+    />
+  </div>
 
-  <div class="spacer-2"></div>
-
+  <button id="connect-btn" type="submit" name="button">
+    CONNECT
+  </button>
+</form>
 </div>
-</div>
+
 </template>
 
 <script>
@@ -88,5 +84,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" src="../app.scss"></style>
