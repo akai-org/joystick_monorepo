@@ -39,10 +39,6 @@ export default {
     }
   },
   mounted: function () {
-    if (!this.$store.state.gui) {
-      this.$router.push('/')
-      return
-    }
     this.$store.dispatch('initWebsocketConnection')
     window.addEventListener('unload', this.closeSocket)
   },
