@@ -33,13 +33,21 @@ export default {
     },
     handleTouchEnd (key) {
       dispatchPressButton({ key, keyState: ka.KEY_UP })
+    },
+    closeSocket () {
+      this.$state.socket.close()
     }
   },
   mounted: function () {
     if (!this.$store.state.gui) {
       this.$router.push('/')
+      return
     }
     this.$store.dispatch('initWebsocketConnection')
+    window.addEventListener('unload', this.closeSocket)
+  },
+  beforeUnmount: function () {
+    window.removeEventListener('unload', this.closeSocket)
   }
 }
 </script>
