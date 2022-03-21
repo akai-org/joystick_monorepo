@@ -22,9 +22,9 @@ const router = createRouter({
 
 router.beforeEach(async (to, from) => {
   console.log(store.state.gui)
-  if (to.name === 'Game' && !store.state.gui) {
-    return { name: 'Login' }
-  }
+  // if (to.name === 'Game' && !store.state.gui) {
+  //   return { name: 'Login' }
+  // }
 })
 
 export default router
