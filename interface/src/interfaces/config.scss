@@ -1,0 +1,34 @@
+// === BUTTONS ===
+
+// What color controller buttons light up
+$ctrl-active: #e6e6e6;
+
+// Controller background color
+$ctrl-background-color: #000;
+
+// Font size of label inside buttons 
+// e.g arrows inside a button in ArrowsHorizontal
+$ctrl-label-size: 5rem;
+
+// === ROTATE WARNING ===
+
+// Length of rotate-warning animation (360deg spin)
+$rotate-warning-anim-length: 1.5s;
+
+$ctrl-rotate-warning-background-color: #000;
+
+$ctrl-rotate-warning-color: $ctrl-active;
+
+$ctrl-rotate-warning-size: 2rem;
+
+// === FULLSCREEN BUTTON ===
+
+$ctrl-fullscreen-btn-background-color: #000000d0;
+
+$ctrl-fullscreen-btn-color: $ctrl-active;
+
+$ctrl-fullscreen-btn-size: 3rem;
+
+// === DIVIDER ===
+
+$ctrl-divider-length: 90%;
