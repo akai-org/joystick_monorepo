@@ -1,24 +1,25 @@
 <template>
-    <div class="container">
+  <div>
+    <div class="controller-arrows-vertical-1ab">
       <div class="col">
-        <button @touchstart="$emit(onTouchstart, keys.ARROW_UP)" @touchend="$emit(onTouchend, keys.ARROW_UP)">
+        <button class="ctrl-button" @touchstart="$emit(onTouchstart, keys.ARROW_UP)" @touchend="$emit(onTouchend, keys.ARROW_UP)">
           <i class="fas fa-arrow-up"></i>
         </button>
 
-        <button @touchstart="$emit(onTouchstart, keys.ARROW_DOWN)" @touchend="$emit(onTouchend, keys.ARROW_DOWN)">
+        <button class="ctrl-button" @touchstart="$emit(onTouchstart, keys.ARROW_DOWN)" @touchend="$emit(onTouchend, keys.ARROW_DOWN)">
           <i class="fas fa-arrow-down"></i>
          </button>
       </div>
       <div class="col">
-        <button id="a-btn" @touchstart="$emit(onTouchstart, keys.ACTION_BUTTON_1)" @touchend="$emit(onTouchend, keys.ACTION_BUTTON_1)">
+        <button class="ctrl-button" id="a-btn" @touchstart="$emit(onTouchstart, keys.ACTION_BUTTON_1)" @touchend="$emit(onTouchend, keys.ACTION_BUTTON_1)">
           A
          </button>
-        <button id="b-btn" @touchstart="$emit(onTouchstart, keys.ACTION_BUTTON_2)" @touchend="$emit(onTouchend, keys.ACTION_BUTTON_2)">
+        <button class="ctrl-button" id="b-btn" @touchstart="$emit(onTouchstart, keys.ACTION_BUTTON_2)" @touchend="$emit(onTouchend, keys.ACTION_BUTTON_2)">
           B
          </button>
       </div>
     </div>
-    <div id="rotate-warning">
+    <div class="rotate-warning rotate-warning-portrait">
       <i class="fas fa-sync"></i>
       <h1>Rotate your device.</h1>
     </div>
@@ -26,6 +27,7 @@
       <i class="fas fa-expand-arrows-alt"></i>
       Click to go fullscreen
     </div>
+  </div>
 </template>
 
 <script>
@@ -56,7 +58,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  @import './ArrowsVertical1AB.scss'
-</style>

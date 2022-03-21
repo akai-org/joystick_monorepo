@@ -1,0 +1,59 @@
+.rotate-warning {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 1;
+
+    background-color: $ctrl-rotate-warning-background-color;
+    color: $ctrl-rotate-warning-color;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    h1 {
+        font-size: $ctrl-rotate-warning-size;
+        padding-top: 2rem;
+    }
+
+    i {
+        font-size: $ctrl-rotate-warning-size;
+    }
+}
+
+
+@media (orientation: portrait) {
+    .rotate-warning-portrait {
+        visibility: visible;
+        i {
+            animation: rotation $ctrl-rotate-warning-anim-length infinite linear;
+        }
+    }
+
+    .rotate-warning-landscape {
+        visibility: hidden;
+    }
+}
+
+@media (orientation: landscape) {
+    .rotate-warning-portrait {
+        visibility: hidden;
+    }
+
+    .rotate-warning-landscape {
+        visibility: visible;
+        i {
+            animation: rotation $ctrl-rotate-warning-anim-length infinite linear;
+        }
+    }
+}
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    } to {
+        transform: rotate(359deg);
+    }
+}

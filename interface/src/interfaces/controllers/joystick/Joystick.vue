@@ -1,9 +1,10 @@
 <template>
-  <div>
+<div>
+  <div class="controller-joystick">
     <div id="joydiv"></div>
   </div>
 
-  <div id="rotate-warning">
+  <div class="rotate-warning rotate-warning-landscape">
     <i class="fas fa-sync"></i>
     <h1>Rotate your device.</h1>
   </div>
@@ -11,6 +12,7 @@
   <div class="fullscreen-btn" @click="tryToFullscreen()">
     <i class="fas fa-expand-arrows-alt"></i>
     Click to go fullscreen
+  </div>
   </div>
 </template>
 
@@ -97,7 +99,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  @import './Joystick.scss'
-</style>

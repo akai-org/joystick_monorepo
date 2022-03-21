@@ -1,148 +1,41 @@
-// =========================
-//  config
-// =========================
-
-$color-active: #fdfdfd;
-$color-background: #000;
-$color-transparentbg: #000000d0;
-
-$button-relative-size: 75%;
-$button-arrow-size: 5rem;
-
-$rotate-warning-rotation-speed: 1.5s;
-$warning-size: 2rem;
-
-$divider-width: 90%;
-
-// =========================
-
-:root {
-    background-color: $color-background;
-}
-
-button {
-    border: none;
-    width: 100vw;
-    height: 50vh;
-
-    background-color: $color-background;
-    color: $color-active;
-    font-size: $button-arrow-size;
-    font-weight: 1000;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    &:active {
-        background-color: $color-active;
-        color: $color-background;
-    }
-}
-
-#top-btn {
-    position: absolute;
-    clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
-}
-#left-btn {
-    position: absolute;
-    height: 100vh;
-    clip-path: polygon(0% 0%, 50% 50%, 0% 100%);
-
-    justify-content: left;
-
-    i {
-        margin-left: 200px;
-    }
-}
-
-#right-btn {
-    position: absolute;
-    height: 100vh;
-    clip-path: polygon(100% 0%, 50% 50%, 100% 100%);
-
-    justify-content: right;
-
-    i {
-        margin-right: 200px;
-    }
-}
-
-#bottom-btn {
-    top: 50vh;
-
-    position: absolute;
-    clip-path: polygon(100% 100%, 50% 0%, 0% 100%);
-}
-
-#rotate-warning {
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    z-index: 1;
-
-    background-color: $color-background;
-    color: white;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    h1 {
-        font-size: $warning-size;
-        padding-top: 2rem;
+.controller-crossarrows {
+    button {
+        width: 100vw;
+        height: 50vh;
     }
 
-    i {
-        font-size: $warning-size;
+    #top-btn {
+        position: absolute;
+        clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
     }
-}
 
-
-@media (orientation: portrait) {
-    #rotate-warning {
-        visibility: visible;
+    #left-btn {
+        position: absolute;
+        height: 100vh;
+        clip-path: polygon(0% 0%, 50% 50%, 0% 100%);
+    
+        justify-content: left;
+    
         i {
-            animation: rotation $rotate-warning-rotation-speed infinite linear;
+            margin-left: 200px;
         }
     }
-}
-
-@media (orientation: landscape) {
-    #rotate-warning {
-        visibility: hidden;
-    }
-}
-
-@keyframes rotation {
-    from {
-        transform: rotate(0deg);
-    } to {
-        transform: rotate(359deg);
-    }
-}
-
-.fullscreen-btn {
-    color: #fff;
-    background-color: #000000a0;
-    font-size: 3rem;
     
-    width: 100vw;
-    height: 100vh;
-
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 2;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-:fullscreen .fullscreen-btn {
-    visibility: hidden !important;
+    #right-btn {
+        position: absolute;
+        height: 100vh;
+        clip-path: polygon(100% 0%, 50% 50%, 100% 100%);
+    
+        justify-content: right;
+    
+        i {
+            margin-right: 200px;
+        }
+    }
+    
+    #bottom-btn {
+        top: 50vh;
+        position: absolute;
+        clip-path: polygon(100% 100%, 50% 0%, 0% 100%);
+    }
 }

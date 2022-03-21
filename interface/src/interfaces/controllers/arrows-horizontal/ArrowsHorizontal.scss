@@ -1,0 +1,21 @@
+.controller-arrows-horizontal {
+    display: flex;
+    flex-direction: row;
+    
+    button {
+        width: 50vw;
+        height: 100vh;
+    }
+
+    #divider {
+        position: absolute;
+        width: 1px;
+        height: $ctrl-divider-length;
+        top: calc((100% - $ctrl-divider-length) / 2);
+        left: 50%;
+    
+        background-color: $ctrl-active;
+    
+        justify-self: center;
+    }
+}
