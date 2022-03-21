@@ -22,18 +22,18 @@
             color: $ctrl-background-color;
         }
     }
-}
 
-#divider {
-    position: absolute;
-    width: 1px;
-    height: $ctrl-divider-length;
-    top: calc((100% - $ctrl-divider-length) / 2);
-    left: 50%;
-
-    background-color: $ctrl-active;
-
-    justify-self: center;
+    #divider {
+        position: absolute;
+        width: 1px;
+        height: $ctrl-divider-length;
+        top: calc((100% - $ctrl-divider-length) / 2);
+        left: 50%;
+    
+        background-color: $ctrl-active;
+    
+        justify-self: center;
+    }
 }
 
 .fullscreen-btn {

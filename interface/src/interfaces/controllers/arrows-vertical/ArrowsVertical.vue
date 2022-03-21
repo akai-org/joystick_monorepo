@@ -7,6 +7,8 @@
     <button @touchstart="$emit(onTouchstart, keys.ARROW_DOWN)" @touchend="$emit(onTouchend, keys.ARROW_DOWN)">
       <i class="fas fa-arrow-down"></i>
     </button>
+
+    <div id="divider"></div>
   </div>
 
   <div class="rotate-warning rotate-warning-landscape">
@@ -14,7 +16,6 @@
     <h1>Rotate your device.</h1>
   </div>
 
-  <div id="divider"></div>
   <div class="fullscreen-btn" @click="tryToFullscreen()">
     <i class="fas fa-expand-arrows-alt"></i>
     Click to go fullscreen

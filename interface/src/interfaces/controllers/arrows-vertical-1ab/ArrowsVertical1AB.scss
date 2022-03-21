@@ -29,18 +29,6 @@
     }   
 }
 
-#divider {
-    position: absolute;
-    width: $ctrl-divider-length;
-    height: 1px;
-    top: 50%;
-    left: calc((100% - $ctrl-divider-length) / 2);
-
-    background-color: $ctrl-active;
-
-    justify-self: center;
-}
-
 .fullscreen-btn {
     color: $ctrl-fullscreen-btn-color;
     background-color: $ctrl-fullscreen-btn-background-color;
