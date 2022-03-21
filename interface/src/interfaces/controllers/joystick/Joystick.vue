@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="controller-joystick">
     <div id="joydiv"></div>
   </div>
 
-  <div id="rotate-warning">
+  <div class="rotate-warning rotate-warning-landscape">
     <i class="fas fa-sync"></i>
     <h1>Rotate your device.</h1>
   </div>
@@ -97,7 +97,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  @import './Joystick.scss'
-</style>

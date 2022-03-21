@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="controller-arrows-vertical-1ab">
       <div class="col">
         <button @touchstart="$emit(onTouchstart, keys.ARROW_UP)" @touchend="$emit(onTouchend, keys.ARROW_UP)">
           <i class="fas fa-arrow-up"></i>
@@ -18,7 +18,7 @@
          </button>
       </div>
     </div>
-    <div id="rotate-warning">
+    <div class="rotate-warning rotate-warning-portrait">
       <i class="fas fa-sync"></i>
       <h1>Rotate your device.</h1>
     </div>
@@ -56,7 +56,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  @import './ArrowsVertical1AB.scss'
-</style>

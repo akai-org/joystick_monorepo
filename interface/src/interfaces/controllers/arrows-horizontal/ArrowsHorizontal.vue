@@ -1,24 +1,22 @@
 <template>
-  <div>
-    <div id="btn-container">
-      <button @touchstart="$emit(onTouchstart, keys.ARROW_LEFT)" @touchend="$emit(onTouchend, keys.ARROW_LEFT)">
-          <i class="fas fa-arrow-left"></i>
-      </button>
-      <button @touchstart="$emit(onTouchstart, keys.ARROW_RIGHT)" @touchend="$emit(onTouchend, keys.ARROW_RIGHT)">
-          <i class="fas fa-arrow-right"></i>
-      </button>
-    </div>
+  <div class="controller-arrows-horizontal">
+    <button @touchstart="$emit(onTouchstart, keys.ARROW_LEFT)" @touchend="$emit(onTouchend, keys.ARROW_LEFT)">
+        <i class="fas fa-arrow-left"></i>
+    </button>
+    <button @touchstart="$emit(onTouchstart, keys.ARROW_RIGHT)" @touchend="$emit(onTouchend, keys.ARROW_RIGHT)">
+        <i class="fas fa-arrow-right"></i>
+    </button>
+  </div>
 
-    <div id="rotate-warning">
-      <i class="fas fa-sync"></i>
-      <h1>Rotate your device.</h1>
-    </div>
+  <div class="rotate-warning rotate-warning-portrait">
+    <i class="fas fa-sync"></i>
+    <h1>Rotate your device.</h1>
+  </div>
 
-    <div id="divider"></div>
+  <div id="divider"></div>
     <div class="fullscreen-btn" @click="tryToFullscreen()">
-      <i class="fas fa-expand-arrows-alt"></i>
-      Click to go fullscreen
-    </div>
+    <i class="fas fa-expand-arrows-alt"></i>
+    Click to go fullscreen
   </div>
 </template>
 
@@ -53,7 +51,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  @import './ArrowsHorizontal.scss'
-</style>

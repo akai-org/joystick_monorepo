@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="controller-crossarrows">
       <button id="top-btn" @touchstart="$emit(onTouchstart, keys.ARROW_UP)" @touchend="$emit(onTouchend, keys.ARROW_UP)">
           <i class="fas fa-arrow-up"></i>
       </button>
@@ -14,7 +14,7 @@
       </button>
   </div>
 
-  <div id="rotate-warning">
+  <div class="rotate-warning rotate-warning-portrait">
     <i class="fas fa-sync"></i>
     <h1>Rotate your device.</h1>
   </div>
@@ -53,7 +53,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  @import './CrossArrows.scss'
-</style>
