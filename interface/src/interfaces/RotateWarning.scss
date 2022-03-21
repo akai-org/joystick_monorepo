@@ -6,20 +6,20 @@
     left: 0;
     z-index: 1;
 
-    background-color: $color-background;
-    color: white;
+    background-color: $ctrl-rotate-warning-background-color;
+    color: $ctrl-rotate-warning-color;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
 
     h1 {
-        font-size: $warning-size;
+        font-size: $ctrl-rotate-warning-size;
         padding-top: 2rem;
     }
 
     i {
-        font-size: $warning-size;
+        font-size: $ctrl-rotate-warning-size;
     }
 }
 
@@ -28,7 +28,7 @@
     .rotate-warning-portrait {
         visibility: visible;
         i {
-            animation: rotation $rotate-warning-rotation-speed infinite linear;
+            animation: rotation $ctrl-rotate-warning-anim-length infinite linear;
         }
     }
 
@@ -45,7 +45,7 @@
     .rotate-warning-landscape {
         visibility: visible;
         i {
-            animation: rotation $rotate-warning-rotation-speed infinite linear;
+            animation: rotation $ctrl-rotate-warning-anim-length infinite linear;
         }
     }
 }

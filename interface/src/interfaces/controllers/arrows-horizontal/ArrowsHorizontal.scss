@@ -1,21 +1,3 @@
-// =========================
-//  config
-// =========================
-
-$color-active: #fdfdfd;
-$color-background: #000;
-$color-transparentbg: #000000d0;
-
-$button-relative-size: 75%;
-$button-arrow-size: 5rem;
-
-$rotate-warning-rotation-speed: 1.5s;
-$warning-size: 2rem;
-
-$divider-height: 90%;
-
-// =========================
-
 .controller-arrows-horizontal {
     display: flex;
     flex-direction: row;
@@ -26,9 +8,9 @@ $divider-height: 90%;
         width: 50vw;
         height: 100vh;
     
-        background-color: $color-background;
-        color: $color-active;
-        font-size: $button-arrow-size;
+        background-color: $ctrl-background-color;
+        color: $ctrl-active;
+        font-size: $ctrl-label-size;
         font-weight: 1000;
     
         display: flex;
@@ -36,8 +18,8 @@ $divider-height: 90%;
         align-items: center;
     
         &:active {
-            background-color: $color-active;
-            color: $color-background;
+            background-color: $ctrl-active;
+            color: $ctrl-background-color;
         }
     }
 }
@@ -45,19 +27,19 @@ $divider-height: 90%;
 #divider {
     position: absolute;
     width: 1px;
-    height: $divider-height;
-    top: calc((100% - $divider-height) / 2);
+    height: $ctrl-divider-length;
+    top: calc((100% - $ctrl-divider-length) / 2);
     left: 50%;
 
-    background-color: $color-active;
+    background-color: $ctrl-active;
 
     justify-self: center;
 }
 
 .fullscreen-btn {
-    color: #fff;
-    background-color: #000000a0;
-    font-size: 3rem;
+    color: $ctrl-fullscreen-btn-color;
+    background-color: $ctrl-fullscreen-btn-background-color;
+    font-size: $ctrl-fullscreen-btn-size;
     
     width: 100vw;
     height: 100vh;

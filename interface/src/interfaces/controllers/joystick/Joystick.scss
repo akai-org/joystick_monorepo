@@ -8,9 +8,9 @@
 }
 
 .fullscreen-btn {
-    color: #fff;
-    background-color: #000000a0;
-    font-size: 3rem;
+    color: $ctrl-fullscreen-btn-color;
+    background-color: $ctrl-fullscreen-btn-background-color;
+    font-size: $ctrl-fullscreen-btn-size;
     
     width: 100vw;
     height: 100vh;

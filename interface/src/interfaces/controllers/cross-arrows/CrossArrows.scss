@@ -1,30 +1,12 @@
-// =========================
-//  config
-// =========================
-
-$color-active: #fdfdfd;
-$color-background: #000;
-$color-transparentbg: #000000d0;
-
-$button-relative-size: 75%;
-$button-arrow-size: 5rem;
-
-$rotate-warning-rotation-speed: 1.5s;
-$warning-size: 2rem;
-
-$divider-width: 90%;
-
-// =========================
-
 .controller-crossarrows {
     button {
         border: none;
         width: 100vw;
         height: 50vh;
     
-        background-color: $color-background;
-        color: $color-active;
-        font-size: $button-arrow-size;
+        background-color: $ctrl-background-color;
+        color: $ctrl-active;
+        font-size: $ctrl-label-size;
         font-weight: 1000;
     
         display: flex;
@@ -32,8 +14,8 @@ $divider-width: 90%;
         align-items: center;
     
         &:active {
-            background-color: $color-active;
-            color: $color-background;
+            background-color: $ctrl-active;
+            color: $ctrl-background-color;
         }
     }
 
@@ -74,9 +56,9 @@ $divider-width: 90%;
 }
 
 .fullscreen-btn {
-    color: #fff;
-    background-color: #000000a0;
-    font-size: 3rem;
+    color: $ctrl-fullscreen-btn-color;
+    background-color: $ctrl-fullscreen-btn-background-color;
+    font-size: $ctrl-fullscreen-btn-size;
     
     width: 100vw;
     height: 100vh;
