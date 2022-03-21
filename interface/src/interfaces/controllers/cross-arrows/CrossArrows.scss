@@ -1,22 +1,7 @@
 .controller-crossarrows {
     button {
-        border: none;
         width: 100vw;
         height: 50vh;
-    
-        background-color: $ctrl-background-color;
-        color: $ctrl-active;
-        font-size: $ctrl-label-size;
-        font-weight: 1000;
-    
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    
-        &:active {
-            background-color: $ctrl-active;
-            color: $ctrl-background-color;
-        }
     }
 
     #top-btn {

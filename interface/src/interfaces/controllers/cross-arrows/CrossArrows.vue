@@ -1,15 +1,15 @@
 <template>
   <div class="controller-crossarrows">
-      <button id="top-btn" @touchstart="$emit(onTouchstart, keys.ARROW_UP)" @touchend="$emit(onTouchend, keys.ARROW_UP)">
+      <button class="ctrl-button" id="top-btn" @touchstart="$emit(onTouchstart, keys.ARROW_UP)" @touchend="$emit(onTouchend, keys.ARROW_UP)">
           <i class="fas fa-arrow-up"></i>
       </button>
-      <button id="left-btn" @touchstart="$emit(onTouchstart, keys.ARROW_LEFT)" @touchend="$emit(onTouchend, keys.ARROW_LEFT)">
+      <button class="ctrl-button" id="left-btn" @touchstart="$emit(onTouchstart, keys.ARROW_LEFT)" @touchend="$emit(onTouchend, keys.ARROW_LEFT)">
           <i class="fas fa-arrow-left"></i>
       </button>
-      <button id="right-btn" @touchstart="$emit(onTouchstart, keys.ARROW_RIGHT)" @touchend="$emit(onTouchend, keys.ARROW_RIGHT)">
+      <button class="ctrl-button" id="right-btn" @touchstart="$emit(onTouchstart, keys.ARROW_RIGHT)" @touchend="$emit(onTouchend, keys.ARROW_RIGHT)">
           <i class="fas fa-arrow-right"></i>
       </button>
-      <button id="bottom-btn" @touchstart="$emit(onTouchstart, keys.ARROW_DOWN)" @touchend="$emit(onTouchend, keys.ARROW_DOWN)">
+      <button class="ctrl-button" id="bottom-btn" @touchstart="$emit(onTouchstart, keys.ARROW_DOWN)" @touchend="$emit(onTouchend, keys.ARROW_DOWN)">
           <i class="fas fa-arrow-down"></i>
       </button>
   </div>

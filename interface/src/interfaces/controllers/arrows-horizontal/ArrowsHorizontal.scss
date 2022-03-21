@@ -3,24 +3,8 @@
     flex-direction: row;
     
     button {
-        border: none;
-    
         width: 50vw;
         height: 100vh;
-    
-        background-color: $ctrl-background-color;
-        color: $ctrl-active;
-        font-size: $ctrl-label-size;
-        font-weight: 1000;
-    
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    
-        &:active {
-            background-color: $ctrl-active;
-            color: $ctrl-background-color;
-        }
     }
 
     #divider {

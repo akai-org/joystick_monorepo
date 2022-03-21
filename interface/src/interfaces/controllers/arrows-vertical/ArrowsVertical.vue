@@ -1,10 +1,10 @@
 <template >
   <div class="controller-arrows-vertical">
-    <button @touchstart="$emit(onTouchstart, keys.ARROW_UP)" @touchend="$emit(onTouchend, keys.ARROW_UP)">
+    <button class="ctrl-button" @touchstart="$emit(onTouchstart, keys.ARROW_UP)" @touchend="$emit(onTouchend, keys.ARROW_UP)">
       <i class="fas fa-arrow-up"></i>
     </button>
 
-    <button @touchstart="$emit(onTouchstart, keys.ARROW_DOWN)" @touchend="$emit(onTouchend, keys.ARROW_DOWN)">
+    <button class="ctrl-button" @touchstart="$emit(onTouchstart, keys.ARROW_DOWN)" @touchend="$emit(onTouchend, keys.ARROW_DOWN)">
       <i class="fas fa-arrow-down"></i>
     </button>
 
