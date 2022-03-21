@@ -16,58 +16,29 @@ $divider-height: 90%;
 
 // =========================
 
-:root {
-    background-color: $color-background;
-}
-
-#btn-container {
+.controller-arrows-horizontal {
     display: flex;
     flex-direction: row;
-
+    
     button {
         border: none;
-
+    
         width: 50vw;
         height: 100vh;
-
+    
         background-color: $color-background;
         color: $color-active;
         font-size: $button-arrow-size;
         font-weight: 1000;
-
+    
         display: flex;
         justify-content: center;
         align-items: center;
-
+    
         &:active {
             background-color: $color-active;
             color: $color-background;
         }
-    }
-}
-
-#rotate-warning {
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    z-index: 1;
-
-    background-color: $color-background;
-    color: white;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    h1 {
-        font-size: $warning-size;
-        padding-top: 2rem;
-    }
-
-    i {
-        font-size: $warning-size;
     }
 }
 
@@ -81,29 +52,6 @@ $divider-height: 90%;
     background-color: $color-active;
 
     justify-self: center;
-}
-
-@media (orientation: landscape) {
-    #rotate-warning {
-        visibility: hidden;
-    }
-}
-
-@media (orientation: portrait) {
-    #rotate-warning {
-        visibility: visible;
-        i {
-            animation: rotation $rotate-warning-rotation-speed infinite linear;
-        }
-    }
-}
-
-@keyframes rotation {
-    from {
-        transform: rotate(0deg);
-    } to {
-        transform: rotate(359deg);
-    }
 }
 
 .fullscreen-btn {

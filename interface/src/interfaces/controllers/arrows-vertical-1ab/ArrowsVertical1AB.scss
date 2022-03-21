@@ -20,7 +20,7 @@ $divider-width: 90%;
     background-color: $color-background;
 }
 
-.container {
+.controller-arrows-vertical-1ab {
     display: flex;
     flex-direction: row;
 
@@ -51,31 +51,6 @@ $divider-width: 90%;
     }   
 }
 
-#rotate-warning {
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    z-index: 1;
-
-    background-color: $color-background;
-    color: white;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    h1 {
-        font-size: $warning-size;
-        padding-top: 2rem;
-    }
-
-    i {
-        font-size: $warning-size;
-    }
-}
-
 #divider {
     position: absolute;
     width: $divider-width;
@@ -88,29 +63,6 @@ $divider-width: 90%;
     background-color: $color-active;
 
     justify-self: center;
-}
-
-@media (orientation: portrait) {
-    #rotate-warning {
-        visibility: visible;
-    }
-    i {
-        animation: rotation $rotate-warning-rotation-speed infinite linear;
-    }
-}
-
-@media (orientation: landscape) {
-    #rotate-warning {
-        visibility: hidden;
-    }
-}
-
-@keyframes rotation {
-    from {
-        transform: rotate(0deg);
-    } to {
-        transform: rotate(359deg);
-    }
 }
 
 .fullscreen-btn {
