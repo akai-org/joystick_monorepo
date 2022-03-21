@@ -1,4 +1,5 @@
 <template>
+<div>
   <div class="controller-joystick">
     <div id="joydiv"></div>
   </div>
@@ -11,6 +12,7 @@
   <div class="fullscreen-btn" @click="tryToFullscreen()">
     <i class="fas fa-expand-arrows-alt"></i>
     Click to go fullscreen
+  </div>
   </div>
 </template>
 

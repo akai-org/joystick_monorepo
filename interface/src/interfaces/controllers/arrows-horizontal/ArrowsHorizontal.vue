@@ -1,4 +1,5 @@
 <template>
+  <div>
   <div class="controller-arrows-horizontal">
     <button class="ctrl-button" @touchstart="$emit(onTouchstart, keys.ARROW_LEFT)" @touchend="$emit(onTouchend, keys.ARROW_LEFT)">
         <i class="fas fa-arrow-left"></i>
@@ -17,6 +18,7 @@
   <div class="fullscreen-btn" @click="tryToFullscreen()">
     <i class="fas fa-expand-arrows-alt"></i>
     Click to go fullscreen
+  </div>
   </div>
 </template>
 

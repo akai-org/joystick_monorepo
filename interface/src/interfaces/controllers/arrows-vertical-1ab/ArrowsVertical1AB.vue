@@ -1,4 +1,5 @@
 <template>
+  <div>
     <div class="controller-arrows-vertical-1ab">
       <div class="col">
         <button class="ctrl-button" @touchstart="$emit(onTouchstart, keys.ARROW_UP)" @touchend="$emit(onTouchend, keys.ARROW_UP)">
@@ -26,6 +27,7 @@
       <i class="fas fa-expand-arrows-alt"></i>
       Click to go fullscreen
     </div>
+  </div>
 </template>
 
 <script>
