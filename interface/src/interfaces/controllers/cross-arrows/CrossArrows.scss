@@ -39,26 +39,3 @@
         clip-path: polygon(100% 100%, 50% 0%, 0% 100%);
     }
 }
-
-.fullscreen-btn {
-    color: $ctrl-fullscreen-btn-color;
-    background-color: $ctrl-fullscreen-btn-background-color;
-    font-size: $ctrl-fullscreen-btn-size;
-    
-    width: 100vw;
-    height: 100vh;
-
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 2;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-:fullscreen .fullscreen-btn {
-    visibility: hidden !important;
-}
