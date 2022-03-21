@@ -1,5 +1,4 @@
 <template>
-    <arrows-horizontal />
         <component
         @on-touchstart="handleTouchStart"
         @on-touchend="handleTouchEnd"
