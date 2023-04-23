@@ -1,18 +1,18 @@
 <template>
-<div>
-  <div class="controller-joystick">
-    <div id="joydiv"></div>
-  </div>
+  <div>
+    <div class="controller-joystick">
+      <div id="joydiv"></div>
+    </div>
 
-  <div class="rotate-warning rotate-warning-landscape">
-    <i class="fas fa-sync"></i>
-    <h1>Rotate your device.</h1>
-  </div>
+    <div class="rotate-warning rotate-warning-landscape">
+      <i class="fas fa-sync"></i>
+      <h1>Rotate your device.</h1>
+    </div>
 
-  <div class="fullscreen-btn" @click="tryToFullscreen()">
-    <i class="fas fa-expand-arrows-alt"></i>
-    Click to go fullscreen
-  </div>
+    <div class="fullscreen-btn" @click="tryToFullscreen()">
+      <i class="fas fa-expand-arrows-alt"></i>
+      Click to go fullscreen
+    </div>
   </div>
 </template>
 
@@ -21,23 +21,50 @@ import { events } from '../../InterfacesEvents'
 import { keyActions as keys } from '../../Keys'
 import nipplejs from 'nipplejs'
 
-function getKeyFromDir (dir) {
-  let k
-  switch (dir) {
+function getDirection (radians) {
+  const directions = [
+    'left',
+    'down-left',
+    'down',
+    'down-right',
+    'right',
+    'up-right',
+    'up',
+    'up-left'
+  ]
+  const index = Math.round((radians + Math.PI) / (Math.PI / 4)) % 8
+  return directions[index]
+}
+
+function getKeyFromDir (directory) {
+  let key
+  switch (directory) {
     case 'up':
-      k = keys.ARROW_UP
+      key = [keys.ARROW_UP]
       break
     case 'down':
-      k = keys.ARROW_DOWN
+      key = [keys.ARROW_DOWN]
       break
     case 'left':
-      k = keys.ARROW_LEFT
+      key = [keys.ARROW_LEFT]
       break
     case 'right':
-      k = keys.ARROW_RIGHT
+      key = [keys.ARROW_RIGHT]
+      break
+    case 'up-left':
+      key = [keys.ARROW_UP, keys.ARROW_LEFT]
+      break
+    case 'up-right':
+      key = [keys.ARROW_UP, keys.ARROW_RIGHT]
+      break
+    case 'down-left':
+      key = [keys.ARROW_DOWN, keys.ARROW_LEFT]
+      break
+    case 'down-right':
+      key = [keys.ARROW_DOWN, keys.ARROW_RIGHT]
       break
   }
-  return k
+  return key
 }
 
 // when phone is rotated to this orientation we lock it
@@ -45,7 +72,10 @@ const wantedOrientation = 'portrait'
 
 screen.orientation.addEventListener('change', function (e) {
   const orientation = e.target.type
-  if (orientation === `${wantedOrientation}-primary` || orientation === `${wantedOrientation}-secondary`) {
+  if (
+    orientation === `${wantedOrientation}-primary` ||
+    orientation === `${wantedOrientation}-secondary`
+  ) {
     screen.orientation.lock(orientation)
   }
 })
@@ -60,41 +90,60 @@ export default {
     tryToFullscreen () {
       document.body.requestFullscreen()
     },
-    stopLastKey (key) {
-      this.$emit(events.onTouchend, key)
+
+    compareDirectories (lastDir, newDir) {
+      if (!lastDir || !newDir) return false
+
+      if (lastDir.length !== newDir.length) return false
+
+      return lastDir.every((d, i) => d === newDir[i])
     },
-    startLastKey (key) {
-      this.$emit(events.onTouchstart, key)
+
+    move (dir) {
+      console.log('move', dir)
+      dir.forEach((d) => {
+        this.$emit(events.onTouchstart, d)
+      })
+    },
+    stop (dir) {
+      dir.forEach((d) => {
+        this.$emit(events.onTouchend, d)
+      })
     }
   },
   mounted () {
     // Last joystick direction
-    let lastDir
-
-    const comp = this
+    let lastDirectory
 
     var JoystickManager = nipplejs.create({
       zone: document.getElementById('joydiv'),
       threshold: 0.2,
       color: 'gray',
       restJoystick: true,
-      mode: 'static',
-      position: { left: '50%', bottom: '150px' },
+      mode: 'dynamic',
       size: 150,
       restOpacity: 0.5
     })
 
     // On joystick direction change
-    JoystickManager.on('dir', function (event, nipple) {
-      const newDir = nipple.direction.angle
+    JoystickManager.on('move', (_, nipple) => {
+      const newDir = getDirection(nipple.angle.radian)
       const keyToPress = getKeyFromDir(newDir)
 
-      if (lastDir) {
-        comp.stopLastKey(lastDir)
+      if (this.compareDirectories(lastDirectory, keyToPress)) return
+
+      if (lastDirectory) {
+        this.stop(lastDirectory)
       }
 
-      comp.startLastKey(keyToPress)
-      lastDir = keyToPress
+      this.move(keyToPress)
+      lastDirectory = keyToPress
+    })
+
+    // On joystick direction release
+    JoystickManager.on('end', () => {
+      this.stop(lastDirectory)
+      lastDirectory = null
     })
   }
 }
