@@ -65,6 +65,7 @@ func (manager *PlayerManager) RemovePlayer(id string) error {
 	defer func() {
 		delete(manager.players, id)
 		delete(player.Room.occupiedIds, player.roomPlayerId)
+		player.Room.players = deleteIndex[*Player](player.Room.players, int(player.roomPlayerId))
 	}()
 	messagePayload := &playerMessage{
 		playerRemovedEvent,
