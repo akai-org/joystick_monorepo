@@ -35,15 +35,15 @@ export default {
       dispatchPressButton({ key, keyState: ka.KEY_UP })
     },
     closeSocket () {
-      this.$state.socket.close()
+      this.$store.state.socket.close()
     }
   },
   mounted: function () {
     this.$store.dispatch('initWebsocketConnection')
-    window.addEventListener('unload', this.closeSocket)
   },
-  beforeUnmount: function () {
-    window.removeEventListener('unload', this.closeSocket)
+  beforeRouteLeave: function (to, from, next) {
+    this.$store.state.socket.close()
+    next()
   }
 }
 </script>

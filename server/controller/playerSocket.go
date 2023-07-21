@@ -42,23 +42,31 @@ func (c *controller) playerSocketHandler(w http.ResponseWriter, r *http.Request)
 		return
 	}
 	c.logger.Debug(fmt.Sprintf("Player %s connected", player.Nickname))
+
 	defer func() {
 		c.logger.Debug(fmt.Sprintf("Player %s disconnected, removing that player", player.Nickname))
-		c.engine.RemovePlayer(payload.GlobalID)
+		if err := c.engine.RemovePlayer(payload.GlobalID); err != nil {
+			c.logger.Error(fmt.Sprintf("Error during player %s removal: %v", player.Nickname, err))
+		}
 	}()
 
 	connectionClose := make(chan interface{})
 	go ping(connectionClose, conn)
 	for {
-		messageType, message, err := conn.ReadMessage()
-		if err != nil {
-			c.logger.Warning(fmt.Sprintf("Error during message reading: %v", err))
+		select {
+		case <-connectionClose:
 			return
+		default:
+			messageType, message, err := conn.ReadMessage()
+			if err != nil {
+				c.logger.Warning(fmt.Sprintf("Error during message reading: %v", err))
+				return
+			}
+			if messageType != websocket.BinaryMessage {
+				c.logger.Debug(fmt.Sprintf("Message received from player %v is not of binary type!", player.Nickname))
+				continue
+			}
+			player.SendMessageToRoom(message)
 		}
-		if messageType != websocket.BinaryMessage {
-			c.logger.Debug(fmt.Sprintf("Message received from player %v is not of binary type!", player.Nickname))
-			continue
-		}
-		player.SendMessageToRoom(message)
 	}
 }

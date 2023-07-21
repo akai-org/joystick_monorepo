@@ -14,6 +14,7 @@ export default {
     msg: String
   },
   mounted () {
+    console.log("mounted")
     this.$store.dispatch('initWebsocketConnection')
   },
   data () {
