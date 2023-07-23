@@ -36,13 +36,14 @@ export default {
     },
     closeSocket () {
       this.$store.state.socket.close()
+      this.$store.state.socket = null
     }
   },
   mounted: function () {
     this.$store.dispatch('initWebsocketConnection')
   },
   beforeRouteLeave: function (to, from, next) {
-    this.$store.state.socket.close()
+    this.closeSocket()
     next()
   }
 }

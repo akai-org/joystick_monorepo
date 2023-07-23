@@ -14,6 +14,10 @@ export default createStore({
     initWebsocketConnectionSuccess (state, socket) {
       state.socket = socket
       socket.addEventListener('open', onOpenHandler)
+      socket.addEventListener('error', (event) => {
+        console.log(event)
+        alert('Connection to server failed')
+      })
     },
     websocketConnectionAlreadyEstablished () {
 
