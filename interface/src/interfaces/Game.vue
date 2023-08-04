@@ -2,6 +2,7 @@
         <component
         @on-touchstart="handleTouchStart"
         @on-touchend="handleTouchEnd"
+        @on-set-orientation="handleOrientationChange"
         :is="this.$store.state.gui" ></component>
 </template>
 
@@ -16,6 +17,18 @@ import ArrowsVertical1AB from './controllers/arrows-vertical-1ab/ArrowsVertical1
 import CrossArrows from './controllers/cross-arrows/CrossArrows.vue'
 import CrossArrows1AB from './controllers/cross-arrows-1ab/CrossArrows1AB.vue'
 import Joystick from './controllers/joystick/Joystick.vue'
+
+async function onChangeOrientation (e, wantedOrientation) {
+  console.log('orientation changed')
+  const orientation = e.target.type
+  if (orientation === `${wantedOrientation}-primary` || orientation === `${wantedOrientation}-secondary`) {
+    try {
+      await screen.orientation.lock(wantedOrientation)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
 
 export default {
   name: 'GameDisplay',
@@ -37,6 +50,12 @@ export default {
     closeSocket () {
       this.$store.state.socket.close()
       this.$store.state.socket = null
+    },
+    handleOrientationChange (orientation) {
+      screen.orientation.removeEventListener('change', (e) => onChangeOrientation(e, orientation))
+      if (orientation) {
+        screen.orientation.addEventListener('change', (e) => onChangeOrientation(e, orientation))
+      }
     }
   },
   mounted: function () {

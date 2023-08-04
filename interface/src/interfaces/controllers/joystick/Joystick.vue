@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { useInterfaceLifecycleEssentials } from '../../../utils/useInterfaceLifecycleEssentials'
 import { events } from '../../InterfacesEvents'
 import { keyActions as keys } from '../../Keys'
 import nipplejs from 'nipplejs'
@@ -70,19 +71,12 @@ function getKeyFromDir (directory) {
 // when phone is rotated to this orientation we lock it
 const wantedOrientation = 'portrait'
 
-screen.orientation.addEventListener('change', function (e) {
-  const orientation = e.target.type
-  if (
-    orientation === `${wantedOrientation}-primary` ||
-    orientation === `${wantedOrientation}-secondary`
-  ) {
-    screen.orientation.lock(orientation)
-  }
-})
-
 export default {
   name: 'JoystickInterface',
-  emits: [events.onTouchstart, events.onTouchend],
+  emits: [events.onTouchstart, events.onTouchend, events.onSetOrientation],
+  setup (_, context) {
+    useInterfaceLifecycleEssentials(context, wantedOrientation)
+  },
   data: function () {
     return { ...events, keys }
   },
