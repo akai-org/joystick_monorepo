@@ -1,5 +1,5 @@
 import { createStore } from 'vuex'
-import { keyCodes, keyStates } from '../utils/keyCodes'
+import { commandType, keyCodes, keyStates } from '../utils/keyCodes'
 import { onOpenHandler } from '../utils/socketHelpers'
 import { PRESS_BUTTON, SAVE_INTERFACE } from './actions'
 
@@ -31,9 +31,10 @@ export default createStore({
       const keyCode = keyCodes.get(key)
       const kState = keyStates.get(keyState)
 
-      const message = (keyCode | kState)
-      const payload = new Uint8Array(1)
-      payload[0] = message
+      const action = (keyCode | kState)
+      const payload = new Uint8Array(2)
+      payload[0] = commandType.get('button')
+      payload[1] = action
       state.socket.send(payload.buffer)
 
       commit(PRESS_BUTTON)
