@@ -115,7 +115,7 @@ export default {
     // Last joystick direction
     let lastDirectory
 
-    var JoystickManager = nipplejs.create({
+    const JoystickManager = nipplejs.create({
       zone: document.getElementById('joydiv'),
       threshold: 0.2,
       color: 'gray',

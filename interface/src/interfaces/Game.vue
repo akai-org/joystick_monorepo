@@ -18,7 +18,7 @@ import CrossArrows1AB from './controllers/cross-arrows-1ab/CrossArrows1AB.vue'
 import Joystick from './controllers/joystick/Joystick.vue'
 
 export default {
-  name: 'Game',
+  name: 'GameDisplay',
   components: {
     ArrowsVertical,
     ArrowsHorizontal,
