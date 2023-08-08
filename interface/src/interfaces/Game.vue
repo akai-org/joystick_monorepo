@@ -4,7 +4,6 @@
         @on-touchend="handleTouchEnd"
         @on-joystick="handleJoystick"
         :is="this.$store.state.gui" ></component>
-        
 </template>
 
 <script>

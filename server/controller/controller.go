@@ -7,14 +7,12 @@ import (
 	"github.com/gorilla/websocket"
 	"log"
 	"net/http"
-	"sync"
 )
 
 type controller struct {
 	engine   engine.Engine
 	upgrader websocket.Upgrader
 	logger   *logger.Logger
-	mu       sync.Mutex
 	conn     *websocket.Conn
 }
 
@@ -29,12 +27,6 @@ func New(logger *logger.Logger) *controller {
 		upgrader: upgrader,
 		logger:   logger,
 	}
-}
-
-func (c *controller) WriteMessage(messageType int, data []byte) error {
-	c.mu.Lock()
-	defer c.mu.Unlock()
-	return c.conn.WriteMessage(messageType, data)
 }
 
 func (c *controller) Listen() {
