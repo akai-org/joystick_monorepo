@@ -16,7 +16,7 @@ import ArrowsHorizontal from './controllers/arrows-horizontal/ArrowsHorizontal.v
 import ArrowsVertical1AB from './controllers/arrows-vertical-1ab/ArrowsVertical1AB.vue'
 import CrossArrows from './controllers/cross-arrows/CrossArrows.vue'
 import CrossArrows1AB from './controllers/cross-arrows-1ab/CrossArrows1AB.vue'
-import Joystick from './controllers/joystick/Joystick.vue'
+import SingleJoystick from './controllers/single-joystick/SingleJoystick.vue'
 
 export default {
   name: 'Game',
@@ -26,7 +26,7 @@ export default {
     ArrowsVertical1AB,
     CrossArrows,
     CrossArrows1AB,
-    Joystick
+    SingleJoystick
   },
   methods: {
     handleTouchStart (key) {

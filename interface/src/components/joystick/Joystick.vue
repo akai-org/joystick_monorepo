@@ -17,8 +17,8 @@
 </template>
 
 <script>
-import { events } from '../../InterfacesEvents'
-import { keyActions as keys } from '../../Keys'
+import { events } from '../../interfaces/InterfacesEvents'
+import { keyActions as keys } from '../../interfaces/Keys'
 import nipplejs from 'nipplejs'
 
 // when phone is rotated to this orientation we lock it
@@ -37,6 +37,7 @@ screen.orientation.addEventListener('change', function (e) {
 export default {
   name: 'JoystickInterface',
   emits: [events.onTouchstart, events.onTouchend, events.onJoystick],
+  props: { joystickType: String },
   data: function () {
     return { ...events, keys }
   },
@@ -77,7 +78,7 @@ export default {
 
       const payload = payloadDrag | payloadAngle
       if (payload !== lastPayload) {
-        this.$emit(events.onJoystick, 'left', payload)
+        this.$emit(events.onJoystick, this.$props.joystickType, payload)
         lastPayload = payload
       }
     })
@@ -86,7 +87,7 @@ export default {
     JoystickManager.on('end', () => {
       const payload = 0b00000000
 
-      this.$emit(events.onJoystick, 'left', payload)
+      this.$emit(events.onJoystick, this.$props.joystickType, payload)
     })
   }
 }
