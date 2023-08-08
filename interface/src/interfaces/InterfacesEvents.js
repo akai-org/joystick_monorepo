@@ -1,4 +1,5 @@
 export const events = {
   onTouchstart: 'on-touchstart',
-  onTouchend: 'on-touchend'
+  onTouchend: 'on-touchend',
+  onJoystick: 'on-joystick'
 }

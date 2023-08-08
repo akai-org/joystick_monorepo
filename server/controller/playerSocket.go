@@ -51,7 +51,7 @@ func (c *controller) playerSocketHandler(w http.ResponseWriter, r *http.Request)
 	}()
 
 	connectionClose := make(chan interface{})
-	go ping(connectionClose, conn)
+	go ping(connectionClose, conn, &c.mu)
 	for {
 		select {
 		case <-connectionClose:

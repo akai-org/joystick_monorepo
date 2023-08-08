@@ -7,12 +7,15 @@ import (
 	"github.com/gorilla/websocket"
 	"log"
 	"net/http"
+	"sync"
 )
 
 type controller struct {
 	engine   engine.Engine
 	upgrader websocket.Upgrader
 	logger   *logger.Logger
+	mu       sync.Mutex
+	conn     *websocket.Conn
 }
 
 func New(logger *logger.Logger) *controller {
@@ -28,11 +31,17 @@ func New(logger *logger.Logger) *controller {
 	}
 }
 
+func (c *controller) WriteMessage(messageType int, data []byte) error {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	return c.conn.WriteMessage(messageType, data)
+}
+
 func (c *controller) Listen() {
 	c.logger.Info("Began listening...")
 	http.HandleFunc("/player/socket", c.playerSocketHandler)
 	http.HandleFunc("/room/socket", c.roomSocketHandler)
 	http.HandleFunc("/join", c.registerNewPlayer)
 	http.HandleFunc("/create", c.createRoom)
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":8081", nil))
 }

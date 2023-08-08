@@ -18,7 +18,7 @@ const (
 )
 
 var (
-	availableGuis = []string{"ArrowsHorizontal", "ArrowsVertical", "ArrowsVertical1AB", "CrossArrows", "CrossArrows1AB"}
+	availableGuis = []string{"ArrowsHorizontal", "ArrowsVertical", "ArrowsVertical1AB", "CrossArrows", "CrossArrows1AB", "Joystick"}
 )
 
 func NewRoomManager(logger *logger.Logger) *RoomManager {

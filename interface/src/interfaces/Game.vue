@@ -2,13 +2,15 @@
         <component
         @on-touchstart="handleTouchStart"
         @on-touchend="handleTouchEnd"
+        @on-joystick="handleJoystick"
         :is="this.$store.state.gui" ></component>
+        
 </template>
 
 <script>
 
 import { keyActions as ka } from './Keys'
-import { dispatchPressButton } from '../store/actionCreator'
+import { dispatchJoystickMove, dispatchPressButton } from '../store/actionCreator'
 
 import ArrowsVertical from './controllers/arrows-vertical/ArrowsVertical.vue'
 import ArrowsHorizontal from './controllers/arrows-horizontal/ArrowsHorizontal.vue'
@@ -33,6 +35,10 @@ export default {
     },
     handleTouchEnd (key) {
       dispatchPressButton({ key, keyState: ka.KEY_UP })
+    },
+    handleJoystick (joystickType, payload) {
+      console.log(`handle joystick: ${payload}`)
+      dispatchJoystickMove({ joystickType, payload })
     },
     closeSocket () {
       this.$store.state.socket.close()
