@@ -13,3 +13,5 @@ export const keyStates = new Map([
   ['KEY_UP', 0b00000000],
   ['KEY_DOWN', 0b00000001]
 ])
+
+export const commandType = new Map([['button', 0b00000000]])
