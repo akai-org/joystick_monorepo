@@ -47,10 +47,11 @@ export default {
   },
   mounted () {
     let lastPayload = 0b00000000
-    const distanceResolution = 4
+    const dragResolution = 4
     const maxRadius = 75
     // 2 to the power of 6 because we have 6 bits available to send the angle
-    const angleResolution = Math.round(200 * Math.PI) / (Math.pow(2, 6) - 1)
+    const angleResolution = 2 * Math.PI.toPrecision(3) / ((1 << 6) - 1)
+    console.log(`angle resolution: ${angleResolution}`)
 
     var JoystickManager = nipplejs.create({
       zone: document.getElementById('joydiv'),
@@ -64,15 +65,17 @@ export default {
 
     // On joystick direction change
     JoystickManager.on('move', (_, nipple) => {
-      const angle = nipple.angle.radian * 100
-      const distance = nipple.distance
+      const angle = nipple.angle.radian
+      const drag = nipple.distance
 
-      const parsedDistance = Math.ceil((distance * distanceResolution / maxRadius)) - 1
-      const payloadDistance = (parsedDistance * Math.pow(2, 6))
+      const parsedDrag = Math.ceil((drag * dragResolution / maxRadius)) - 1
+
+      // multiplied by 64 to put drag info in two most significant bits
+      const payloadDrag = (parsedDrag * 1 << 6)
 
       const payloadAngle = Math.round(angle / angleResolution)
 
-      const payload = payloadDistance | payloadAngle
+      const payload = payloadDrag | payloadAngle
       if (payload !== lastPayload) {
         this.$emit(events.onJoystick, 'left', payload)
         lastPayload = payload

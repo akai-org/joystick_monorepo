@@ -36,7 +36,6 @@ export default {
       dispatchPressButton({ key, keyState: ka.KEY_UP })
     },
     handleJoystick (joystickType, payload) {
-      console.log(`handle joystick: ${payload}`)
       dispatchJoystickMove({ joystickType, payload })
     },
     closeSocket () {
