@@ -10,4 +10,4 @@ export default {
 }
 </script>
 
-<style lang="scss" src="./interfaces/main.scss"></style>
+<style lang="scss" src="./app.scss"></style>
