@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { useInterfaceLifecycleEssentials } from '../../utils/useInterfaceLifecycleEssentials'
 import { events } from '../../interfaces/InterfacesEvents'
 import { keyActions as keys } from '../../interfaces/Keys'
 import nipplejs from 'nipplejs'
@@ -24,19 +25,12 @@ import nipplejs from 'nipplejs'
 // when phone is rotated to this orientation we lock it
 const wantedOrientation = 'portrait'
 
-screen.orientation.addEventListener('change', function (e) {
-  const orientation = e.target.type
-  if (
-    orientation === `${wantedOrientation}-primary` ||
-    orientation === `${wantedOrientation}-secondary`
-  ) {
-    screen.orientation.lock(orientation)
-  }
-})
-
 export default {
   name: 'JoystickInterface',
   emits: [events.onTouchstart, events.onTouchend, events.onJoystick],
+  setup (_, context) {
+    useInterfaceLifecycleEssentials(context, wantedOrientation)
+  },
   props: { joystickType: String },
   data: function () {
     return { ...events, keys }
@@ -52,9 +46,8 @@ export default {
     const maxRadius = 75
     // 2 to the power of 6 because we have 6 bits available to send the angle
     const angleResolution = 2 * Math.PI.toPrecision(3) / ((1 << 6) - 1)
-    console.log(`angle resolution: ${angleResolution}`)
 
-    var JoystickManager = nipplejs.create({
+    const JoystickManager = nipplejs.create({
       zone: document.getElementById('joydiv'),
       threshold: 0.2,
       color: 'gray',

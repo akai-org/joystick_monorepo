@@ -3,6 +3,7 @@
         @on-touchstart="handleTouchStart"
         @on-touchend="handleTouchEnd"
         @on-joystick="handleJoystick"
+        @on-set-orientation="handleOrientationChange"
         :is="this.$store.state.gui" ></component>
 </template>
 
@@ -18,8 +19,20 @@ import CrossArrows from './controllers/cross-arrows/CrossArrows.vue'
 import CrossArrows1AB from './controllers/cross-arrows-1ab/CrossArrows1AB.vue'
 import SingleJoystick from './controllers/single-joystick/SingleJoystick.vue'
 
+async function onChangeOrientation (e, wantedOrientation) {
+  console.log('orientation changed')
+  const orientation = e.target.type
+  if (orientation === `${wantedOrientation}-primary` || orientation === `${wantedOrientation}-secondary`) {
+    try {
+      await screen.orientation.lock(wantedOrientation)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 export default {
-  name: 'Game',
+  name: 'GameDisplay',
   components: {
     ArrowsVertical,
     ArrowsHorizontal,
@@ -41,6 +54,12 @@ export default {
     closeSocket () {
       this.$store.state.socket.close()
       this.$store.state.socket = null
+    },
+    handleOrientationChange (orientation) {
+      screen.orientation.removeEventListener('change', (e) => onChangeOrientation(e, orientation))
+      if (orientation) {
+        screen.orientation.addEventListener('change', (e) => onChangeOrientation(e, orientation))
+      }
     }
   },
   mounted: function () {

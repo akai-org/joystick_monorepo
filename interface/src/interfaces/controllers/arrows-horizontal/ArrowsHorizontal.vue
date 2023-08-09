@@ -24,22 +24,19 @@
 
 <script>
 
+import { useInterfaceLifecycleEssentials } from '../../../utils/useInterfaceLifecycleEssentials'
 import { events } from '../../InterfacesEvents'
 import { keyActions as keys } from '../../Keys'
 
 // when phone is rotated to this orientation we lock it
 const wantedOrientation = 'landscape'
 
-screen.orientation.addEventListener('change', function (e) {
-  const orientation = e.target.type
-  if (orientation === `${wantedOrientation}-primary` || orientation === `${wantedOrientation}-secondary`) {
-    screen.orientation.lock(orientation)
-  }
-})
-
 export default {
   name: 'BasicLeftRightInterface',
-  emits: [events.onTouchstart, events.onTouchend],
+  emits: [events.onTouchstart, events.onTouchend, events.onSetOrientation],
+  setup (_, context) {
+    useInterfaceLifecycleEssentials(context, wantedOrientation)
+  },
   data: function () {
     return {
       ...events,
