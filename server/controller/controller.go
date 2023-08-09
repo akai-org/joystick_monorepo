@@ -34,5 +34,5 @@ func (c *controller) Listen() {
 	http.HandleFunc("/room/socket", c.roomSocketHandler)
 	http.HandleFunc("/join", c.registerNewPlayer)
 	http.HandleFunc("/create", c.createRoom)
-	log.Fatal(http.ListenAndServe(":8081", nil))
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
