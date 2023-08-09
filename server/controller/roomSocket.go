@@ -22,7 +22,6 @@ func (c *controller) roomSocketHandler(w http.ResponseWriter, r *http.Request) {
 		c.logger.Warning(fmt.Sprintf("Failed to upgrade connection: %v", err))
 		return
 	}
-	c.conn = conn
 	defer conn.Close()
 
 	c.logger.Debug("Successfuly established websocket connection with room")

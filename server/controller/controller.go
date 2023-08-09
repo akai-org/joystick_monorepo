@@ -13,7 +13,6 @@ type controller struct {
 	engine   engine.Engine
 	upgrader websocket.Upgrader
 	logger   *logger.Logger
-	conn     *websocket.Conn
 }
 
 func New(logger *logger.Logger) *controller {
