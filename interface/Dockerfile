@@ -1,6 +1,14 @@
 FROM node:18.16.1
 
 WORKDIR /app
-COPY . .
+COPY package*.json ./
 
-ENTRYPOINT "docker/entrypoint.sh"
+# Install production dependencies.
+RUN npm ci
+
+# Copy local code to the container image.
+COPY . ./
+
+RUN npm run build
+
+CMD [ "npm", "run", "production" ]
