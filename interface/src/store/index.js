@@ -1,7 +1,7 @@
 import { createStore } from 'vuex'
 import { commandType, keyCodes, keyStates } from '../utils/keyCodes'
 import { onOpenHandler } from '../utils/socketHelpers'
-import { PRESS_BUTTON, SAVE_INTERFACE } from './actions'
+import { JOYSTICK_MOVE, PRESS_BUTTON, SAVE_INTERFACE } from './actions'
 
 export default createStore({
   state: {
@@ -24,7 +24,8 @@ export default createStore({
     },
     saveInterface (state, gui) {
       state.gui = gui
-    }
+    },
+    joystickMove () {}
   },
   actions: {
     pressButton ({ commit, state }, { key, keyState }) {
@@ -38,6 +39,16 @@ export default createStore({
       state.socket.send(payload.buffer)
 
       commit(PRESS_BUTTON)
+    },
+    joystickMove ({ commit, state }, { joystickType, payload: message }) {
+      const commandType = joystickType === 'right' ? 0b00000010 : 0b00000001
+      // console.log(message)
+      const payload = new Uint8Array(2)
+      payload[0] = commandType
+      payload[1] = message
+      state.socket.send(payload.buffer)
+
+      commit(JOYSTICK_MOVE)
     },
     // This action doesn't show up in devtools because it's called before devtools attach to the app
     initWebsocketConnection ({ commit, state }) {

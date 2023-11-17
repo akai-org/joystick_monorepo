@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/gorilla/websocket"
 	"net/http"
+	"sync"
 )
 
 type initialWsPlayerMessage struct {
@@ -15,6 +16,7 @@ type initialWsPlayerMessage struct {
 func (c *controller) playerSocketHandler(w http.ResponseWriter, r *http.Request) {
 	// Upgrade our raw HTTP connection to a websocket based one
 	conn, err := c.upgrader.Upgrade(w, r, nil)
+	var m sync.Mutex
 	if err != nil {
 		c.logger.Debug(fmt.Sprintf("Error during connection upgradation: %v", err))
 		return
@@ -51,7 +53,7 @@ func (c *controller) playerSocketHandler(w http.ResponseWriter, r *http.Request)
 	}()
 
 	connectionClose := make(chan interface{})
-	go ping(connectionClose, conn)
+	go ping(connectionClose, conn, &m)
 	for {
 		select {
 		case <-connectionClose:
