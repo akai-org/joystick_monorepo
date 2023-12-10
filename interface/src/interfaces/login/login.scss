@@ -189,6 +189,25 @@ form {
             border-radius: 8px;
         }
     }
+
+    .form-checkbox {
+        display: flex;
+        flex-flow: row-reverse wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 1.1rem;
+        
+        label {
+            margin-bottom: 0.1rem;
+            color: $label-text-color;
+            font-weight: 700;
+        }
+
+        input {
+            accent-color: $primary;
+        }
+    }
 }
 
 @keyframes rotation {

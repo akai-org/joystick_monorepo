@@ -34,6 +34,16 @@
           v-model="nickname"
           required
           maxlength="10"
+          v-on:input="checkShowCheckbox()"
+        />
+      </div>
+    
+      <div class="form-checkbox" v-show="show_checkbox" v-on:click="changeCheckbox()">
+        <label>REMEMBER MY NICKNAME</label>
+        <input
+          type="checkbox"
+          name="remember_nickname"
+          v-model="remember_nickname"
         />
       </div>
       
